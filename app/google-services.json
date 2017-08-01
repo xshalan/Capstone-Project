@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "170905210652",
+    "firebase_url": "https://spacego-database.firebaseio.com",
+    "project_id": "spacego-database",
+    "storage_bucket": "spacego-database.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:170905210652:android:b14ca08d1502fb4b",
+        "android_client_info": {
+          "package_name": "app.com.shalan.spacego"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "170905210652-4vm06vjku4ad5fo7a7k8ua78g773lkdu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.com.shalan.spacego",
+            "certificate_hash": "1a6c3ef68e1cd22ce14782cb4940aecb721600a4"
+          }
+        },
+        {
+          "client_id": "170905210652-9pee36v0nfpflqs6am02h14fe35dv6be.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-RBSbMllWnRqHExjdAPolIxQZ3gS6Hsg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "170905210652-9pee36v0nfpflqs6am02h14fe35dv6be.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

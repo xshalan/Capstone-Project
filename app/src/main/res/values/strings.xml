@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Spacego</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="search">Search</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="space_name">Space Name</string>
+    <string name="description">Description</string>
+    <string name="just_enter_the_space_name">Just enter the space name</string>
+    <string name="a_short_description_about_your_space">A short description about your space</string>
+</resources>
