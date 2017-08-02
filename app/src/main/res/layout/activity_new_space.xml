@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical"
     tools:context="app.com.shalan.spacego.Activities.NewSpace">
 
     <android.support.design.widget.AppBarLayout
@@ -16,56 +18,508 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
             android:layout_margin="22dp"
+            android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <TextView
+                    android:id="@+id/id_space_name_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="24sp"
                     android:text="@string/space_name"
                     android:textColor="@android:color/white"
-                    android:typeface="normal"/>
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/just_enter_the_space_name"
-                    android:textColorHint="@color/textColorHint"
-                    android:textSize="14sp"
-                    android:typeface="normal"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:textSize="24sp"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@android:color/white"
-                    android:text="@string/description"
-                    android:typeface="normal"/>
+                    android:typeface="normal" />
+
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:hint="@string/a_short_description_about_your_space"
+                    android:hint="@string/space_name_hint"
                     android:textColorHint="@color/textColorHint"
-                    android:typeface="normal"/>
+                    android:textSize="14sp"
+                    android:typeface="normal" />
+
+                <TextView
+                    android:id="@+id/id_space_desc_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/description"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    android:typeface="normal" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/space_desc_hint"
+                    android:textColorHint="@color/textColorHint"
+                    android:textSize="14sp"
+                    android:typeface="normal" />
             </LinearLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccentNew"
-        android:tint="@android:color/white"
-        android:layout_marginRight="@dimen/fab_margin"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/add_image"
-        app:layout_anchor="@id/new_space_app_bar"
-        app:layout_anchorGravity="bottom|right|end"/>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+            <!--Address section UI -->
+            <TextView
+                android:id="@+id/id_space_address_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/address_title"
+                android:textColor="@color/colorPrimaryDarkNew"
+                android:textSize="24sp"
+                android:typeface="normal" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/location_icon"
+                    android:tint="@color/colorPrimaryDarkNew" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/space_address_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="40dp"
+                    android:hint="@string/space_address_hint"
+                    android:textColorHint="@color/textColorHint"
+                    android:textSize="14sp"
+                    android:typeface="normal" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/call_icon"
+                    android:tint="@color/colorPrimaryDarkNew" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/space_phone_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="40dp"
+                    android:hint="@string/space_phone_hint"
+                    android:textColorHint="@color/textColorHint"
+                    android:textSize="14sp"
+                    android:typeface="normal" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/state_icon"
+                    android:tint="@color/colorPrimaryDarkNew" />
+
+                <Spinner
+                    android:id="@+id/space_state_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/space_state_hint"
+                    android:textColorHint="@color/textColorHint"
+                    android:textSize="14sp"
+                    android:typeface="normal" />
+            </android.support.v7.widget.CardView>
+            <!--Address section end-->
+
+
+            <!--Website section start-->
+            <TextView
+                android:id="@+id/id_space_map_label2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/website_title"
+                android:textColor="@color/colorPrimaryDarkNew"
+                android:textSize="24sp"
+                android:typeface="normal" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/website_icon"
+                    android:tint="@color/colorPrimaryDarkNew" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/space_website_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="40dp"
+                    android:hint="@string/space_website_hint"
+                    android:textColorHint="@color/textColorHint"
+                    android:textSize="14sp"
+                    android:typeface="normal" />
+            </android.support.v7.widget.CardView>
+            <!--Website section-->
+
+
+            <!--Map Section -->
+
+            <TextView
+                android:id="@+id/id_space_map_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/map_title"
+                android:textColor="@color/colorPrimaryDarkNew"
+                android:textSize="24sp"
+                android:typeface="normal" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/map_icon"
+                    android:tint="@color/colorPrimaryDarkNew" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/space_map_lat_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="40dp"
+                    android:hint="@string/space_map_lat_hint"
+                    android:textColorHint="@color/textColorHint"
+                    android:textSize="14sp"
+                    android:typeface="normal" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/map_icon"
+                    android:tint="@color/colorPrimaryDarkNew" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/space_map_lag_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="40dp"
+                    android:hint="@string/space_wmap_lng_hint"
+                    android:textColorHint="@color/textColorHint"
+                    android:textSize="14sp"
+                    android:typeface="normal" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+
+                <Button
+                    android:id="@+id/id_space_mylocation_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@color/colorPrimaryDarkNew"
+                    android:text="Use My Location"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:typeface="normal" />
+
+            </android.support.v7.widget.CardView>
+
+            <!--Map Section end -->
+
+            <!-- Feature Section start -->
+            <TextView
+                android:id="@+id/id_space_feature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/feature_title"
+                android:textColor="@color/colorPrimaryDarkNew"
+                android:textSize="24sp"
+                android:typeface="normal" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ToggleButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_margin="10dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:textOff="Fast WiFi"
+                            android:textOn="Fast WiFi"
+                            android:textColor="@drawable/feature_tag_textcolor"
+                            android:background="@drawable/features_tag"/>
+                        <ToggleButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_margin="10dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:textOff="Free Coffee"
+                            android:textOn="Free Coffee"
+                            android:textColor="@drawable/feature_tag_textcolor"
+                            android:background="@drawable/features_tag"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ToggleButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_margin="10dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:textOff="24 Hour"
+                            android:textOn="24 Hour"
+                            android:textColor="@drawable/feature_tag_textcolor"
+                            android:background="@drawable/features_tag"/>
+                        <ToggleButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_margin="10dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:textOff="Printer Access"
+                            android:textOn="Printer Access"
+                            android:textColor="@drawable/feature_tag_textcolor"
+                            android:background="@drawable/features_tag"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ToggleButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_margin="10dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:textOff="Free Parking"
+                            android:textOn="Free Parking"
+                            android:textColor="@drawable/feature_tag_textcolor"
+                            android:background="@drawable/features_tag"/>
+                        <ToggleButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_margin="10dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:textOff="Kitchenette"
+                            android:textOn="Kitchenette"
+                            android:textColor="@drawable/feature_tag_textcolor"
+                            android:background="@drawable/features_tag"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ToggleButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_margin="10dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:textOff="Membership"
+                            android:textOn="Membership"
+                            android:textColor="@drawable/feature_tag_textcolor"
+                            android:background="@drawable/features_tag"/>
+                        <ToggleButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_margin="10dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:textOff="Green Space"
+                            android:textOn="Green Space"
+                            android:textColor="@drawable/feature_tag_textcolor"
+                            android:background="@drawable/features_tag"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ToggleButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_margin="10dp"
+                            android:textOff="Conference"
+                            android:textOn="Conference"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:textColor="@drawable/feature_tag_textcolor"
+                            android:background="@drawable/features_tag"/>
+                        <ToggleButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_margin="10dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:textOff="Private Offices"
+                            android:textOn="Private Offices"
+                            android:textColor="@drawable/feature_tag_textcolor"
+                            android:background="@drawable/features_tag"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ToggleButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_margin="10dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:textOff="Public Transpor."
+                            android:textOn="Public Transpor."
+                            android:textColor="@drawable/feature_tag_textcolor"
+                            android:background="@drawable/features_tag"/>
+                        <ToggleButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_margin="10dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:textOff="Maker Space"
+                            android:textOn="Maker Space"
+                            android:textColor="@drawable/feature_tag_textcolor"
+                            android:background="@drawable/features_tag"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+            <Button
+                android:id="@+id/id_add_space"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorPrimaryDarkNew"
+                android:text="@string/add_space"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:typeface="normal" />
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/add_image_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@android:color/white"
+            android:layout_marginRight="16dp"
+            app:borderWidth="0dp"
+            app:elevation="6dp"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/add_image"
+            app:layout_anchor="@id/new_space_app_bar"
+            app:layout_anchorGravity="bottom|right|end"/>
 </android.support.design.widget.CoordinatorLayout>

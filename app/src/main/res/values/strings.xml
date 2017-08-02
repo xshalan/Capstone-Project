@@ -7,10 +7,23 @@
     <string name="action_settings">Settings</string>
     <string name="search">Search</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="space_name">Space Name</string>
     <string name="description">Description</string>
-    <string name="just_enter_the_space_name">Just enter the space name</string>
-    <string name="a_short_description_about_your_space">A short description about your space</string>
+    <string name="space_name_hint">Just enter the space name</string>
+    <string name="space_desc_hint">A short description about your space</string>
+    <string name="space_address_hint">1234 Street, Cairo, Eldokki</string>
+    <string name="space_phone_hint">+2 0112 911 7947</string>
+    <string name="space_state_hint">ex: Cairo</string>
+    <string name="space_website_hint">www.example.com</string>
+    <string name="space_map_lat_hint">30.0680582</string>
+    <string name="space_wmap_lng_hint">31.0194825</string>
+
+    <string name="address_title">Address</string>
+    <string name="website_title">Website</string>
+    <string name="feature_title">Features</string>
+    <string name="map_title">Map</string>
+    <string name="add_space">ADD SPACE</string>
+
+
 </resources>
