@@ -25,5 +25,35 @@
     <string name="map_title">Map</string>
     <string name="add_space">ADD SPACE</string>
 
+    <string name="state_spinner">Choose a state</string>
+    <string-array name="states_arrays">
+        <item>Alexandria</item>
+        <item>Aswan</item>
+        <item>Asyut	</item>
+        <item>Beheira</item>
+        <item>Beni Suef	</item>
+        <item>Cairo	</item>
+        <item>Dakahlia</item>
+        <item>Damietta</item>
+        <item>Faiyum</item>
+        <item>Gharbia</item>
+        <item>Giza</item>
+        <item>Ismailia</item>
+        <item>Kafr El Sheikh</item>
+        <item>Luxor</item>
+        <item>Matruh</item>
+        <item>Minya</item>
+        <item>Monufia</item>
+        <item>New Valley</item>
+        <item>North Sinai</item>
+        <item>Port Said	</item>
+        <item>Qalyubia	</item>
+        <item>Qena	</item>
+        <item>Red Sea</item>
+        <item>Sharqia</item>
+        <item>Sohag	</item>
+        <item>South Sinai</item>
+        <item>Suez</item>
+    </string-array>
 
 </resources>
