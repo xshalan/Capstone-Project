@@ -26,6 +26,18 @@
     <string name="add_space">ADD SPACE</string>
 
     <string name="state_spinner">Choose a state</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="sign_up_with_email">SIGN UP WITH EMAIL</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="login">Login</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="not_have_an_account">Not have an account?</string>
+    <string name="sign_up_account">Sign up</string>
+    <string name="log_in_statment">LOG IN</string>
+    <string name="login_account">LOGIN</string>
+
     <string-array name="states_arrays">
         <item>Alexandria</item>
         <item>Aswan</item>

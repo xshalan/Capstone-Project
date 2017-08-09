@@ -23,6 +23,7 @@ public class spaceItemViewHolder extends RecyclerView.ViewHolder
         spaceName = (TextView) itemView.findViewById(R.id.item_space_name);
         spaceRate = (TextView) itemView.findViewById(R.id.item_space_rate);
         spaceImage = (ImageView) itemView.findViewById(R.id.item_space_image);
+        itemView.setOnClickListener(this);
         mView = itemView;
     }
 

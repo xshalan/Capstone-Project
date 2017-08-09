@@ -24,10 +24,13 @@
         <item name="colorAccent">@color/colorAccentNew</item>
 
     </style>
-
-    <style name="AppTheme.ActionBar.Transparent" parent="AppTheme">
-        <item name="colorPrimary">@android:color/transparent</item>
+    <style name="AppTheme.Fullscreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
 
     </style>
+
+
 
 </resources>

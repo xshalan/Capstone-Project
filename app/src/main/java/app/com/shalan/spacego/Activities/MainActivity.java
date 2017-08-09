@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity
                 viewHolder.setOnItemClickListener(new onSpaceClickListener() {
                     @Override
                     public void onSpaceClick(View view, int position) {
-                        Log.v(TAG,Integer.toString(position));
+                        Log.v(TAG,Integer.toString(position) + model.getName());
                         Intent intent = new Intent(MainActivity.this,DetailsActivity.class) ;
                         intent.putExtra("spaceModel",model);
                         startActivity(intent);

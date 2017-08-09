@@ -3,6 +3,7 @@ package app.com.shalan.spacego.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,7 @@ public class Space implements Parcelable
         })
         public Space createFromParcel(Parcel in) {
             Space instance = new Space();
+            instance.features = new ArrayList<>();
             instance.name = ((String) in.readValue((String.class.getClassLoader())));
             instance.description = ((String) in.readValue((String.class.getClassLoader())));
             instance.address = ((String) in.readValue((String.class.getClassLoader())));
