@@ -2,6 +2,7 @@ package app.com.shalan.spacego.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -16,9 +17,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,25 +36,59 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private String TAG = MainActivity.class.getSimpleName() ;
+    private String TAG = MainActivity.class.getSimpleName();
     @BindView(R.id.spaces_recyclerView)
     RecyclerView spaceRecyclerView;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
-    FirebaseDatabase spaceDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference spaceDatabaseRef;
-
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+    private static FirebaseDatabase spaceDatabase;
+    private DatabaseReference spaceDatabaseRef;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseRecyclerAdapter<Space, spaceItemViewHolder> recyclerAdapter;
+    private boolean firebaseFlag = true ;
+    TextView profileUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.showOverflowMenu();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        View navigationViewHeaderView =navigationView.getHeaderView(0);
+        profileUsername = (TextView) navigationViewHeaderView.findViewById(R.id.profile_username);
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    profileUsername.setVisibility(View.VISIBLE);
+                    profileUsername.setText(user.getUid());
+                    Menu nav_Menu = navigationView.getMenu();
+                    nav_Menu.findItem(R.id.sign_in).setVisible(false);
+                    nav_Menu.findItem(R.id.sign_out).setVisible(true);
+
+
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    profileUsername.setVisibility(View.INVISIBLE);
+                    Menu nav_Menu = navigationView.getMenu();
+                    nav_Menu.findItem(R.id.sign_out).setVisible(false);
+                    nav_Menu.findItem(R.id.sign_in).setVisible(true);
+
+                }
+            }
+        };
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,9 +103,11 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        if (spaceDatabase == null) {
+            spaceDatabase = FirebaseDatabase.getInstance();
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        }
         spaceDatabase = FirebaseDatabase.getInstance();
         spaceDatabaseRef = spaceDatabase.getReference("Spaces").child("Egypt");
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -87,9 +127,9 @@ public class MainActivity extends AppCompatActivity
                 viewHolder.setOnItemClickListener(new onSpaceClickListener() {
                     @Override
                     public void onSpaceClick(View view, int position) {
-                        Log.v(TAG,Integer.toString(position) + model.getName());
-                        Intent intent = new Intent(MainActivity.this,DetailsActivity.class) ;
-                        intent.putExtra("spaceModel",model);
+                        Log.v(TAG, Integer.toString(position) + model.getName());
+                        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+                        intent.putExtra("spaceModel", model);
                         startActivity(intent);
                     }
                 });
@@ -136,9 +176,15 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.sign_in) {
+            Intent intent = new Intent(MainActivity.this, loginActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.sign_out) {
+            mFirebaseAuth.signOut();
+            Menu nav_Menu = navigationView.getMenu();
+            nav_Menu.findItem(R.id.sign_in).setVisible(true);
+            nav_Menu.findItem(R.id.sign_out).setVisible(false);
+            profileUsername.setVisibility(View.GONE);
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -153,5 +199,19 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mFirebaseAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mFirebaseAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 }

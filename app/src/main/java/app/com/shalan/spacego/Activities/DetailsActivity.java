@@ -20,7 +20,7 @@ public class DetailsActivity extends AppCompatActivity {
     Toolbar detailsToolbar ;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-    private Space spaceModel ;
+    private static Space spaceModel ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -37,6 +37,8 @@
     <string name="sign_up_account">Sign up</string>
     <string name="log_in_statment">LOG IN</string>
     <string name="login_account">LOGIN</string>
+    <string name="about_space">About</string>
+    <string name="lorem_lorem_lorem_lorem_lorem_lorem_lorem_lorem_lorem_lorem_lorem">lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem</string>
 
     <string-array name="states_arrays">
         <item>Alexandria</item>
