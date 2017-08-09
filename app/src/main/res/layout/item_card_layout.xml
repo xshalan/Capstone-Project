@@ -2,10 +2,16 @@
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginLeft="1dp"
+    android:layout_marginRight="1dp"
     android:elevation="@dimen/cardview_compat_inset_shadow"
-    app:cardElevation="6dp">
+    app:cardElevation="4dp"
+    card_view:cardUseCompatPadding="true"
+    app:cardMaxElevation="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,6 +20,8 @@
 
         <ImageView
             android:layout_width="match_parent"
+            android:id="@+id/item_space_image"
+            android:scaleType="centerCrop"
             android:layout_height="200dp"
             android:src="@color/cardview_dark_background" />
 
@@ -27,6 +35,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/item_space_name"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
@@ -36,6 +45,7 @@
             <TextView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:id="@+id/item_space_rate"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/rate_bg"
                 android:gravity="center_vertical|center_horizontal|center"

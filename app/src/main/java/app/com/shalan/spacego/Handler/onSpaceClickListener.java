@@ -1,0 +1,11 @@
+package app.com.shalan.spacego.Handler;
+
+import android.view.View;
+
+/**
+ * Created by noura on 06/08/2017.
+ */
+
+public interface onSpaceClickListener {
+    public void onSpaceClick(View view,int position) ;
+}

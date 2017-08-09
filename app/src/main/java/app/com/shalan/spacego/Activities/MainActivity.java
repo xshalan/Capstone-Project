@@ -1,5 +1,6 @@
 package app.com.shalan.spacego.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -8,24 +9,44 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import app.com.shalan.spacego.Adapters.spaceItemViewHolder;
+import app.com.shalan.spacego.Handler.onSpaceClickListener;
+import app.com.shalan.spacego.Models.Space;
 import app.com.shalan.spacego.R;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private String TAG = MainActivity.class.getSimpleName() ;
+    @BindView(R.id.spaces_recyclerView)
+    RecyclerView spaceRecyclerView;
+
+    FirebaseDatabase spaceDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference spaceDatabaseRef;
+
+    private FirebaseRecyclerAdapter<Space, spaceItemViewHolder> recyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.showOverflowMenu();
@@ -47,10 +68,34 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("spaces");
+        spaceDatabase = FirebaseDatabase.getInstance();
+        spaceDatabaseRef = spaceDatabase.getReference("Spaces").child("Egypt");
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        spaceRecyclerView.setLayoutManager(layoutManager);
+        recyclerAdapter = new FirebaseRecyclerAdapter<Space, spaceItemViewHolder>(
+                Space.class,
+                R.layout.item_card_layout,
+                spaceItemViewHolder.class,
+                spaceDatabaseRef) {
 
-
+            @Override
+            protected void populateViewHolder(spaceItemViewHolder viewHolder, final Space model, int position) {
+                viewHolder.spaceName.setText(model.getName());
+                viewHolder.spaceRate.setText("9");
+                Glide.with(MainActivity.this).load(model.getImageUrl()).into(viewHolder.spaceImage);
+                viewHolder.setOnItemClickListener(new onSpaceClickListener() {
+                    @Override
+                    public void onSpaceClick(View view, int position) {
+                        Log.v(TAG,Integer.toString(position));
+                        Intent intent = new Intent(MainActivity.this,DetailsActivity.class) ;
+                        intent.putExtra("spaceModel",model);
+                        startActivity(intent);
+                    }
+                });
+            }
+        };
+        spaceRecyclerView.setAdapter(recyclerAdapter);
     }
 
     @Override
