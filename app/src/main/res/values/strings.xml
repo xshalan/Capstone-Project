@@ -38,7 +38,22 @@
     <string name="log_in_statment">LOG IN</string>
     <string name="login_account">LOGIN</string>
     <string name="about_space">About</string>
-    <string name="lorem_lorem_lorem_lorem_lorem_lorem_lorem_lorem_lorem_lorem_lorem">lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem</string>
+    <string name="lorem">lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem</string>
+    <string name="comments_space">Comments</string>
+    <string name="enter_a_comment">Enter a comment</string>
+    <string name="username_lorem">Username</string>
+    <string name="free_coffee">Free Coffee</string>
+    <string name="fast_wifi">Fast WiFi</string>
+    <string name="_24_hour">24 Hour</string>
+    <string name="printer_access">Printer Access</string>
+    <string name="free_parking">Free Parking</string>
+    <string name="kitchenette">Kitchenette</string>
+    <string name="membership">Membership</string>
+    <string name="green_space">Green Space</string>
+    <string name="conference">Conference</string>
+    <string name="private_offices">Private Offices</string>
+    <string name="public_transpor">Public Transpor.</string>
+    <string name="maker_space">Maker Space</string>
 
     <string-array name="states_arrays">
         <item>Alexandria</item>
@@ -69,5 +84,6 @@
         <item>South Sinai</item>
         <item>Suez</item>
     </string-array>
+    <string name="title_activity_map">Map</string>
 
 </resources>

@@ -345,7 +345,7 @@
                             android:layout_margin="10dp"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp"
-                            android:textOff="Fast WiFi"
+                            android:textOff="@string/fast_wifi"
                             android:textOn="Fast WiFi"
                             android:textColor="@drawable/feature_tag_textcolor"
                             android:background="@drawable/features_tag"/>
@@ -356,7 +356,7 @@
                             android:id="@+id/feature_free_coffee"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp"
-                            android:textOff="Free Coffee"
+                            android:textOff="@string/free_coffee"
                             android:textOn="Free Coffee"
                             android:textColor="@drawable/feature_tag_textcolor"
                             android:background="@drawable/features_tag"/>
@@ -373,7 +373,7 @@
                             android:id="@+id/feature_24_hour"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp"
-                            android:textOff="24 Hour"
+                            android:textOff="@string/_24_hour"
                             android:textOn="24 Hour"
                             android:textColor="@drawable/feature_tag_textcolor"
                             android:background="@drawable/features_tag"/>
@@ -384,7 +384,7 @@
                             android:id="@+id/feature_printer_access"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp"
-                            android:textOff="Printer Access"
+                            android:textOff="@string/printer_access"
                             android:textOn="Printer Access"
                             android:textColor="@drawable/feature_tag_textcolor"
                             android:background="@drawable/features_tag"/>
@@ -401,7 +401,7 @@
                             android:id="@+id/feature_free_parking"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp"
-                            android:textOff="Free Parking"
+                            android:textOff="@string/free_parking"
                             android:textOn="Free Parking"
                             android:textColor="@drawable/feature_tag_textcolor"
                             android:background="@drawable/features_tag"/>
@@ -412,7 +412,7 @@
                             android:id="@+id/feature_kitchenette"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp"
-                            android:textOff="Kitchenette"
+                            android:textOff="@string/kitchenette"
                             android:textOn="Kitchenette"
                             android:textColor="@drawable/feature_tag_textcolor"
                             android:background="@drawable/features_tag"/>
@@ -429,7 +429,7 @@
                             android:id="@+id/feature_membership"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp"
-                            android:textOff="Membership"
+                            android:textOff="@string/membership"
                             android:textOn="Membership"
                             android:textColor="@drawable/feature_tag_textcolor"
                             android:background="@drawable/features_tag"/>
@@ -440,7 +440,7 @@
                             android:id="@+id/feature_green_space"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp"
-                            android:textOff="Green Space"
+                            android:textOff="@string/green_space"
                             android:textOn="Green Space"
                             android:textColor="@drawable/feature_tag_textcolor"
                             android:background="@drawable/features_tag"/>
@@ -455,7 +455,7 @@
                             android:layout_height="25dp"
                             android:layout_margin="10dp"
                             android:id="@+id/feature_conference"
-                            android:textOff="Conference"
+                            android:textOff="@string/conference"
                             android:textOn="Conference"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp"
@@ -468,7 +468,7 @@
                             android:id="@+id/feature_office"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp"
-                            android:textOff="Private Offices"
+                            android:textOff="@string/private_offices"
                             android:textOn="Private Offices"
                             android:textColor="@drawable/feature_tag_textcolor"
                             android:background="@drawable/features_tag"/>
@@ -485,7 +485,7 @@
                             android:id="@+id/feature_public_transporter"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp"
-                            android:textOff="Public Transpor."
+                            android:textOff="@string/public_transpor"
                             android:textOn="Public Transpor."
                             android:textColor="@drawable/feature_tag_textcolor"
                             android:background="@drawable/features_tag"/>
@@ -496,7 +496,7 @@
                             android:id="@+id/feature_maker_space"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp"
-                            android:textOff="Maker Space"
+                            android:textOff="@string/maker_space"
                             android:textOn="Maker Space"
                             android:textColor="@drawable/feature_tag_textcolor"
                             android:background="@drawable/features_tag"/>

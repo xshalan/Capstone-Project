@@ -14,16 +14,59 @@
             android:text="@string/about_space"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-
+            android:textColor="@color/darkGray"
             android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/about_space"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="@string/lorem"
+            android:textSize="16sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/darkGray"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/comments_space"
             android:layout_marginLeft="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/lorem_lorem_lorem_lorem_lorem_lorem_lorem_lorem_lorem_lorem_lorem"
-            android:textSize="16sp"/>
+            android:layout_marginTop="16dp"
+            android:textColor="@color/darkGray"
+            android:textSize="20sp"/>
+
+
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/commentInput"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/enter_comment_edittext_bg"
+                android:hint="@string/enter_a_comment" />
+
+            <ImageView
+                android:id="@+id/send_image_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:src="@drawable/send_icon" />
+
+        </LinearLayout>
     </LinearLayout>
 
 
