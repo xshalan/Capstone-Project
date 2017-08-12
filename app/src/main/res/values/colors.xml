@@ -12,4 +12,5 @@
 
     <color name="nav_bar_color">#e79f9f9f</color>
     <color name="gray">#f2f2f2</color>
+    <color name="gray_bg">#F7F7F7</color>
 </resources>

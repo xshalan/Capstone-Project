@@ -44,7 +44,7 @@ public class AutoGridLayout extends GridLayout {
             a.recycle();
         }
 
-        /* Initially set columnCount to 1, will be changed automatically later. */
+        /* Initially set columnCount to 1 */
         setColumnCount(1);
     }
 

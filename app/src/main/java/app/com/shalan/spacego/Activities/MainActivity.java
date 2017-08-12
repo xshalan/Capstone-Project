@@ -23,12 +23,16 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import app.com.shalan.spacego.Adapters.spaceItemViewHolder;
 import app.com.shalan.spacego.Handler.onSpaceClickListener;
 import app.com.shalan.spacego.Models.Space;
+import app.com.shalan.spacego.Models.User;
 import app.com.shalan.spacego.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,32 +41,41 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private String TAG = MainActivity.class.getSimpleName();
+
     @BindView(R.id.spaces_recyclerView)
     RecyclerView spaceRecyclerView;
     @BindView(R.id.fab)
     FloatingActionButton fab;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
     @BindView(R.id.nav_view)
     NavigationView navigationView;
+
+    //Firebase variables declaration
     private static FirebaseDatabase spaceDatabase;
     private DatabaseReference spaceDatabaseRef;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseRecyclerAdapter<Space, spaceItemViewHolder> recyclerAdapter;
-    private boolean firebaseFlag = true ;
+
+    // UI Components Variables
     TextView profileUsername;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Bind ButterKnife library to UI
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         toolbar.showOverflowMenu();
+
+        // Configure Navigation drawer view to able to change its components attributes
         View navigationViewHeaderView =navigationView.getHeaderView(0);
         profileUsername = (TextView) navigationViewHeaderView.findViewById(R.id.profile_username);
+
+        // Firebase authentication configuration
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -71,6 +84,19 @@ public class MainActivity extends AppCompatActivity
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    spaceDatabase = FirebaseDatabase.getInstance();
+                    spaceDatabaseRef = spaceDatabase.getReference("Users").child(user.getUid());
+                    spaceDatabaseRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            User mUser = dataSnapshot.getValue(User.class) ;
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                     profileUsername.setVisibility(View.VISIBLE);
                     profileUsername.setText(user.getUid());
                     Menu nav_Menu = navigationView.getMenu();
@@ -186,8 +212,9 @@ public class MainActivity extends AppCompatActivity
             nav_Menu.findItem(R.id.sign_out).setVisible(false);
             profileUsername.setVisibility(View.GONE);
 
-        } else if (id == R.id.nav_slideshow) {
-
+        } else if (id == R.id.nav_nearby) {
+            Intent intent = new Intent(MainActivity.this,NearbyActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
