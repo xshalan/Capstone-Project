@@ -29,6 +29,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     MapView mMapView;
     private GoogleMap googleMap;
 
+    private double latitude ;
+    private double longitude ;
+    private String spaceName;
+
     public MapFragment() {
         // Required empty public constructor
     }
@@ -73,6 +77,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onDestroy();
         mMapView.onDestroy();
     }
+    public static MapFragment newInstance(String name, double latitude , double longitude){
+        MapFragment fragment = new MapFragment() ;
+        fragment.init(name,latitude,longitude);
+        return fragment ;
+    }
+    private void init(String name, double latitude , double longitude){
+        this.spaceName = name ;
+        this.latitude = latitude ;
+        this.longitude = longitude ;
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -90,14 +104,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
 
         googleMap.setMyLocationEnabled(true);
-        googleMap.setTrafficEnabled(true);
-        googleMap.setIndoorEnabled(true);
-        googleMap.setBuildingsEnabled(true);
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        googleMap.getUiSettings().setZoomGesturesEnabled(true);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
-
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng spaceLocation = new LatLng(latitude,longitude);
+        googleMap.addMarker(new MarkerOptions().position(spaceLocation).title(spaceName));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(spaceLocation,15));
     }
 }

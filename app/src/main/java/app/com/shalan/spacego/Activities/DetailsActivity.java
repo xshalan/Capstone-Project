@@ -48,7 +48,7 @@ public class DetailsActivity extends AppCompatActivity {
         //Implementing viewPager in Details screen
         mFragmentList.add(AboutFragment.newInstance(spaceModel.getDescription()));
         mFragmentList.add(FeatureFragment.newInstance(spaceModel.getFeatures()));
-        mFragmentList.add(new MapFragment());
+        mFragmentList.add(MapFragment.newInstance(spaceModel.getName(),spaceModel.getLatitude(),spaceModel.getLongitude()));
         viewPagerAdapter adapter = new viewPagerAdapter(getSupportFragmentManager());
         adapter.setmFragmentList(mFragmentList);
         mViewPager.setAdapter(adapter);

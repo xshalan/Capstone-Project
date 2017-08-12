@@ -49,17 +49,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/commentInput"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="115dp"
                 android:layout_marginLeft="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/enter_comment_edittext_bg"
-                android:hint="@string/enter_a_comment" />
+                android:layout_weight="1">
+                <EditText
+                    android:id="@+id/commentInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
 
-            <ImageView
+                    android:background="@drawable/enter_comment_edittext_bg"
+                    android:hint="@string/enter_a_comment" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/send_image_btn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
