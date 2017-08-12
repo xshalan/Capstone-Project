@@ -37,7 +37,7 @@ public class NearbyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nearby);
         ButterKnife.bind(this);
 
-        if (Utils.isConnected(this)) {
+        if (!Utils.isConnected(this)) {
             connectionState.setVisibility(View.VISIBLE);
         }
         getAllSpaceLocation();
@@ -56,8 +56,8 @@ public class NearbyActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot spaceSnapshot : dataSnapshot.getChildren()) {
                     Space space = spaceSnapshot.getValue(Space.class);
-                    if(inRange(space.getLatitude(), space.getLongitude(),5,30.0680582,31.0194825)){
-                        Log.v(TAG,"name: "+ space.getName()) ;
+                    if (inRange(space.getLatitude(), space.getLongitude(),50 , 30.0680582, 31.0194825)) {
+                        Log.v(TAG, "name: " + space.getName());
                     }
                     Double[] spaceLocation = {space.getLatitude(), space.getLongitude()};
                     spaceList.add(spaceLocation);
@@ -74,14 +74,36 @@ public class NearbyActivity extends AppCompatActivity {
     // - radians(" . $lng . ") ) + sin( radians(" . $lat . ") ) * sin( radians( lat ) ) ) ) AS distance FROM your_table HAVING distance < 5";
 
     public boolean inRange(Double lat, Double lng, int Radius, Double myLat, Double myLng) {
-        double distance = 3959 * Math.acos(Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(myLat)) * Math.cos(Math.toRadians(myLng))
-                - Math.toRadians(lng) + Math.sin(Math.toRadians(lat) * Math.sin(Math.toRadians(myLat))));
+        /* This uses the ‘haversine’ formula to calculate the great-circle distance between two points
+        Haversineformula:
+        	            a = sin²(Δφ/2) + cos φ1 ⋅ cos φ2 ⋅ sin²(Δλ/2)
+                        c = 2 ⋅ atan2( √a, √(1−a) )
+                        d = R ⋅ c
+            where	φ is latitude, λ is longitude, R is earth’s radius (mean radius = 6,371km);
+            @param lat in Degree(Double value)
+            @param lng in Degree(Double value)
+            @param Radius in Km(Double value)
+            @param myLat in Degree(Double value)
+            @param myLng in Degree(Double value)
+        */
+        int kmRadius = 6371;
+        int mileRadius = 3959;
+        Double lat1 = Math.toRadians(lat);
+        Double lng1 = Math.toRadians(lat);
+        Double lat2 = Math.toRadians(myLat - lat);
+        Double lng2 = Math.toRadians(myLng - lng);
+        Double a = Math.sin(lat2/2) * Math.sin(lat2/2) +
+                   Math.cos(lat1) * Math.cos(lng1) *
+                   Math.sin(lng2/2) * Math.sin(lng2/2);
+        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        double distance = kmRadius * c ;
         Log.v(TAG, String.valueOf(distance));
         if (distance > Radius) {
-            Log.v(TAG,"false");
+            Log.v(TAG, "false");
             return false;
         } else {
-            Log.v(TAG,"true");
+            Log.v(TAG, "true");
             return true;
         }
     }
