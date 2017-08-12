@@ -3,6 +3,7 @@ package app.com.shalan.spacego.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,13 +20,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import app.com.shalan.spacego.Handler.Utils;
 import app.com.shalan.spacego.Models.User;
 import app.com.shalan.spacego.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class signUpActivity extends AppCompatActivity {
-    private String TAG = signUpActivity.class.getSimpleName() ;
+    private String TAG = signUpActivity.class.getSimpleName();
+
     @BindView(R.id.username_signup)
     EditText usernameInput;
     @BindView(R.id.email_signup)
@@ -53,57 +56,75 @@ public class signUpActivity extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String username = usernameInput.getText().toString();
-                final String password = passwordInput.getText().toString();
-                final String email = emailInput.getText().toString();
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
-                }
 
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
-                }
-                if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Password too short!", Toast.LENGTH_SHORT).show();
-                }
-                progressBar.setVisibility(View.VISIBLE);
-                mFirebaseAuth.createUserWithEmailAndPassword(email,password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.INVISIBLE);
-                                if(task.isSuccessful()){
-                                    Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_SHORT).show();
-                                    mFirebaseDatabase = FirebaseDatabase.getInstance();
-                                    mDatabaseReference = mFirebaseDatabase.getReference("Users").child(task.getResult().getUser().getUid());
-                                    User user = new User(username,email,password) ;
-                                    mDatabaseReference.setValue(user)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Log.v(TAG,"successful") ;
-                                            } else {
-                                                Log.v(TAG,task.getException().getMessage()) ;
-                                            }
-
-                                        }
-                                    });
-                                }else {
-                                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
+                // Check if internet connection is fine ?!
+                if (Utils.isConnected(getApplicationContext())) {
+                    signUp();
+                } else {
+                    Snackbar.make(view, "Check your Connection!", Snackbar.LENGTH_LONG)
+                            .setAction("Try again!", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    signUp();
                                 }
-
-                            }
-                        });
+                            });
+                }
             }
         });
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(signUpActivity.this,loginActivity.class) ;
+                Intent intent = new Intent(signUpActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
+    }
+
+    private void signUp() {
+        final String username = usernameInput.getText().toString();
+        final String password = passwordInput.getText().toString();
+        final String email = emailInput.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+        }
+        if (password.length() < 6) {
+            Toast.makeText(getApplicationContext(), "Password too short!", Toast.LENGTH_SHORT).show();
+        }
+        progressBar.setVisibility(View.VISIBLE);
+        mFirebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_SHORT).show();
+                            mFirebaseDatabase = FirebaseDatabase.getInstance();
+                            mDatabaseReference = mFirebaseDatabase.getReference("Users").child(task.getResult().getUser().getUid());
+                            User user = new User(username, email, password);
+                            mDatabaseReference.setValue(user)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Log.v(TAG, "successful");
+                                                progressBar.setVisibility(View.INVISIBLE);
+                                                Intent intent = new Intent(signUpActivity.this, loginActivity.class);
+                                                startActivity(intent);
+                                            } else {
+                                                Log.v(TAG, task.getException().getMessage());
+                                            }
+
+                                        }
+                                    });
+                        } else {
+                            Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                });
     }
 }

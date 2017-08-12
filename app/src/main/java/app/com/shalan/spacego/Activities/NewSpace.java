@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -42,6 +43,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.com.shalan.spacego.Handler.Utils;
 import app.com.shalan.spacego.Models.Space;
 import app.com.shalan.spacego.R;
 import butterknife.BindView;
@@ -51,6 +53,7 @@ public class NewSpace extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
+
     private String TAG = NewSpace.class.getSimpleName();
     private int SELECT_PHOTO = 100;
 
@@ -98,14 +101,12 @@ public class NewSpace extends AppCompatActivity implements
     ToggleButton feature_printer_text;
     @BindView(R.id.feature_public_transporter)
     ToggleButton feature_transportation_text;
-
-
     @BindView(R.id.space_state_text)
     Spinner stateSpinner;
 
+    //Firebase storage and database configuration
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef;
-    UploadTask uploadTask;
     FirebaseDatabase spaceDatabase;
     DatabaseReference spaceDatabaseRef;
 
@@ -125,7 +126,9 @@ public class NewSpace extends AppCompatActivity implements
         setContentView(R.layout.activity_new_space);
         setCutomView();
         ButterKnife.bind(this);
+        // set up storage ref
         storageRef = storage.getReferenceFromUrl("gs://spacego-database.appspot.com/");
+        // Add image of your space
         imageAddFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,11 +141,12 @@ public class NewSpace extends AppCompatActivity implements
                 startActivityForResult(intent, SELECT_PHOTO);
             }
         });
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        // set up Adapter for states Spinner
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.states_arrays));
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        stateSpinner.setAdapter(dataAdapter);
-
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        stateSpinner.setAdapter(spinnerAdapter);
+        // set up GoogleApiClient to get my current location
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 // The next two lines tell the new client that “this” current class will handle connection stuff
                 .addConnectionCallbacks(this)
@@ -166,50 +170,13 @@ public class NewSpace extends AppCompatActivity implements
                 List<String> featureList = new ArrayList<>();
                 Space spaceModel = new Space();
 
-                isFeatureSelected(featureList);
-                if (nameText.getText() != null && descriptionText.getText() != null
-                        && addressText.getText() != null && stateSpinner.getSelectedItem() != null
-                        && featureList.size() != 0) {
-                    spaceModel.setName(nameText.getText().toString());
-                    spaceModel.setDescription(descriptionText.getText().toString());
-                    spaceModel.setAddress(addressText.getText().toString());
-                    spaceModel.setCity(stateSpinner.getSelectedItem().toString());
-                    spaceModel.setCountry("Egypt");
-                    spaceModel.setFeatures(featureList);
-                    spaceModel.setLatitude(Double.parseDouble(latMapText.getText().toString()));
-                    spaceModel.setLongitude(Double.parseDouble(lngMapText.getText().toString()));
-                    spaceModel.setWebsite(websiteText.getText().toString());
-                    spaceModel.setPhone(Integer.valueOf(phoneText.getText().toString()));
-                    spaceModel.setImageUrl(imageCoverUrl);
+                // Check if internet connection is fine ?!
+                if (Utils.isConnected(getApplicationContext())) {
+                    isFeatureSelected(featureList);
+                    addSpace(spaceModel, featureList);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Check your informaiton!", Toast.LENGTH_SHORT).show();
-
+                    Snackbar.make(view, "Check your Connection!", Snackbar.LENGTH_LONG);
                 }
-                if (imageCoverUrl != null) {
-
-                    spaceDatabaseRef.push().setValue(spaceModel)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getApplicationContext(), nameText.getText().toString() + " added successfully", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Failed to add space! try later!", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.v(TAG,e.getMessage());
-                        }
-                    });
-
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Please, Pick a photo! ", Toast.LENGTH_SHORT).show();
-                }
-
 
             }
         });
@@ -232,6 +199,7 @@ public class NewSpace extends AppCompatActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        // get photo from Local storage to upload it
         if (requestCode == SELECT_PHOTO && data != null) {
             Uri uri = data.getData();
             Log.v("url:", uri.getPath());
@@ -257,7 +225,7 @@ public class NewSpace extends AppCompatActivity implements
         }
     }
 
-
+    // Method to set Custom Font to specific UI components
     public void setCutomView() {
         TextView title = (TextView) findViewById(R.id.id_space_name_label);
         TextView desc = (TextView) findViewById(R.id.id_space_desc_label);
@@ -274,6 +242,7 @@ public class NewSpace extends AppCompatActivity implements
         useMyLocation.setTypeface(typeface);
     }
 
+    // Ask for permission for API > 23
     protected boolean AskForPermissions() {
         return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
     }
@@ -288,6 +257,7 @@ public class NewSpace extends AppCompatActivity implements
         requestPermissions(permissions, requestCode);
     }
 
+    // Method to set a list of features of space
     public void isFeatureSelected(List<String> FeatureList) {
         ArrayList<ToggleButton> featureButtonsList = new ArrayList();
         featureButtonsList.add(feature_conference_text);
@@ -306,6 +276,52 @@ public class NewSpace extends AppCompatActivity implements
             if (featureButtonsList.get(i).isChecked()) {
                 FeatureList.add(featureButtonsList.get(i).getTextOn().toString());
             }
+        }
+
+    }
+
+    public void addSpace(Space spaceModel, List<String> featureList) {
+        if (nameText.getText() != null && descriptionText.getText() != null
+                && addressText.getText() != null && stateSpinner.getSelectedItem() != null
+                && featureList.size() != 0) {
+            spaceModel.setName(nameText.getText().toString());
+            spaceModel.setDescription(descriptionText.getText().toString());
+            spaceModel.setAddress(addressText.getText().toString());
+            spaceModel.setCity(stateSpinner.getSelectedItem().toString());
+            spaceModel.setCountry("Egypt");
+            spaceModel.setFeatures(featureList);
+            spaceModel.setLatitude(Double.parseDouble(latMapText.getText().toString()));
+            spaceModel.setLongitude(Double.parseDouble(lngMapText.getText().toString()));
+            spaceModel.setWebsite(websiteText.getText().toString());
+            spaceModel.setPhone(Integer.valueOf(phoneText.getText().toString()));
+            spaceModel.setImageUrl(imageCoverUrl);
+        } else {
+            Toast.makeText(getApplicationContext(), "Check your informaiton!", Toast.LENGTH_SHORT).show();
+
+        }
+        if (imageCoverUrl != null) {
+
+            spaceDatabaseRef.push().setValue(spaceModel)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(), nameText.getText().toString() + " added successfully", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Failed to add space! try later!", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.v(TAG, e.getMessage());
+                }
+            });
+
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Please, Pick a photo! ", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -334,8 +350,8 @@ public class NewSpace extends AppCompatActivity implements
             //If everything went fine lets get latitude and longitude
             currentLatitude = location.getLatitude();
             currentLongitude = location.getLongitude();
-            latMapText.setText(Double.toString(currentLatitude));
-            lngMapText.setText(Double.toString(currentLongitude));
+            latMapText.setText(Double.toString(location.getLatitude()));
+            lngMapText.setText(Double.toString(location.getLongitude()));
         }
         getLocationProgress.hide();
     }

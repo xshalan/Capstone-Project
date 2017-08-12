@@ -72,8 +72,15 @@ public class MainActivity extends AppCompatActivity
         toolbar.showOverflowMenu();
 
         // Configure Navigation drawer view to able to change its components attributes
-        View navigationViewHeaderView =navigationView.getHeaderView(0);
+        View navigationViewHeaderView = navigationView.getHeaderView(0);
         profileUsername = (TextView) navigationViewHeaderView.findViewById(R.id.profile_username);
+
+        // Set up Navigation drawer menu
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
         // Firebase authentication configuration
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -86,35 +93,39 @@ public class MainActivity extends AppCompatActivity
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     spaceDatabase = FirebaseDatabase.getInstance();
                     spaceDatabaseRef = spaceDatabase.getReference("Users").child(user.getUid());
+
+                    // Access "USER" database to get all information about the signed user like (username)
                     spaceDatabaseRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            User mUser = dataSnapshot.getValue(User.class) ;
+                            User mUser = dataSnapshot.getValue(User.class);
+                            profileUsername.setText(mUser.getUsername());
                         }
-
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
 
                         }
                     });
                     profileUsername.setVisibility(View.VISIBLE);
-                    profileUsername.setText(user.getUid());
                     Menu nav_Menu = navigationView.getMenu();
+
+                    // show sign out icon in NavigationDrawer Menu
                     nav_Menu.findItem(R.id.sign_in).setVisible(false);
                     nav_Menu.findItem(R.id.sign_out).setVisible(true);
-
-
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
+
                     profileUsername.setVisibility(View.INVISIBLE);
                     Menu nav_Menu = navigationView.getMenu();
+
+                    // show sign in icon in NavigationDrawer Menu
                     nav_Menu.findItem(R.id.sign_out).setVisible(false);
                     nav_Menu.findItem(R.id.sign_in).setVisible(true);
-
                 }
             }
         };
+        // Configure fab button to add new space
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,19 +134,15 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
         navigationView.setNavigationItemSelectedListener(this);
         if (spaceDatabase == null) {
             spaceDatabase = FirebaseDatabase.getInstance();
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         }
+
         spaceDatabase = FirebaseDatabase.getInstance();
         spaceDatabaseRef = spaceDatabase.getReference("Spaces").child("Egypt");
+        // set up Recycler view layout
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         spaceRecyclerView.setLayoutManager(layoutManager);
@@ -147,9 +154,10 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             protected void populateViewHolder(spaceItemViewHolder viewHolder, final Space model, int position) {
-                viewHolder.spaceName.setText(model.getName());
-                viewHolder.spaceRate.setText("9");
-                Glide.with(MainActivity.this).load(model.getImageUrl()).into(viewHolder.spaceImage);
+                viewHolder.spaceName.setText(model.getName());  // Space name
+                viewHolder.spaceRate.setText("9");          // Space rate
+                Glide.with(MainActivity.this).load(model.getImageUrl()).into(viewHolder.spaceImage); //space Img
+                // Hanfle when space onClicked
                 viewHolder.setOnItemClickListener(new onSpaceClickListener() {
                     @Override
                     public void onSpaceClick(View view, int position) {
@@ -213,7 +221,7 @@ public class MainActivity extends AppCompatActivity
             profileUsername.setVisibility(View.GONE);
 
         } else if (id == R.id.nav_nearby) {
-            Intent intent = new Intent(MainActivity.this,NearbyActivity.class);
+            Intent intent = new Intent(MainActivity.this, NearbyActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_manage) {
 

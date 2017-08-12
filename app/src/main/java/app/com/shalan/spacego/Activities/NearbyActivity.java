@@ -1,8 +1,5 @@
 package app.com.shalan.spacego.Activities;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.com.shalan.spacego.Handler.Utils;
 import app.com.shalan.spacego.Models.Space;
 import app.com.shalan.spacego.R;
 import butterknife.BindView;
@@ -39,7 +37,7 @@ public class NearbyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nearby);
         ButterKnife.bind(this);
 
-        if (!isConnected()) {
+        if (Utils.isConnected(this)) {
             connectionState.setVisibility(View.VISIBLE);
         }
         getAllSpaceLocation();
@@ -47,12 +45,6 @@ public class NearbyActivity extends AppCompatActivity {
 
     }
 
-    public boolean isConnected() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
 
     public void getAllSpaceLocation() {
         spaceDatabase = FirebaseDatabase.getInstance();
