@@ -1,21 +1,41 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="app.com.shalan.spacego.Fragments.AboutFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginRight="8dp"
         android:orientation="vertical">
-        <TextView
+        <!--Overview section start-->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/about_space"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/darkGray"
-            android:textSize="20sp"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/about_space"
+                android:textColor="@color/darkGray"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/information_icon"
+                android:tint="@color/colorPrimary" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/about_space"
@@ -24,24 +44,173 @@
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:text="@string/lorem"
-            android:textSize="16sp" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/darkGray"/>
+            android:textSize="12sp" />
 
-        <TextView
+        <View
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:background="@color/yellow" />
+        <!--Overview section enc-->
+
+        <!--Address section start-->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/comments_space"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/address_title"
+                android:textColor="@color/darkGray"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/address_icon"
+                android:tint="@color/colorPrimary" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/details_space_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/darkGray"
-            android:textSize="20sp"/>
+            android:text="@string/lorem"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:background="@color/yellow" />
+        <!--Address section end-->
+
+        <!--Address section start-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/space_phone"
+                android:textColor="@color/darkGray"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/phone_icon"
+                android:tint="@color/colorPrimary" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/details_space_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="@string/lorem"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:background="@color/yellow" />
+        <!--Address section end-->
+
+        <!--Address section start-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/website_title"
+                android:textColor="@color/darkGray"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/website_icon"
+                android:tint="@color/colorPrimary" />
+        </LinearLayout>
 
 
+        <TextView
+            android:id="@+id/details_space_website"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="@string/lorem"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:background="@color/yellow" />
+        <!--Address section end-->
 
 
+        <!--Comments section start-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:text="@string/comments_space"
+                android:textColor="@color/darkGray"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/comment_icon"
+                android:tint="@color/colorPrimary" />
+        </LinearLayout>
 
 
 
@@ -49,27 +218,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <android.support.design.widget.TextInputLayout
+
+            <EditText
+                android:id="@+id/commentInput"
                 android:layout_width="match_parent"
-                android:layout_height="115dp"
+                android:layout_height="120dp"
                 android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/enter_comment_edittext_bg"
                 android:focusable="false"
                 android:focusableInTouchMode="true"
-                android:layout_weight="1">
-                <EditText
-                    android:id="@+id/commentInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                android:hint="@string/enter_a_comment" />
 
-                    android:background="@drawable/enter_comment_edittext_bg"
-                    android:hint="@string/enter_a_comment" />
-            </android.support.design.widget.TextInputLayout>
-
-
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/send_image_btn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginLeft="6dp"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:src="@drawable/send_icon" />
 
@@ -77,5 +242,4 @@
     </LinearLayout>
 
 
-
-</android.support.design.widget.CoordinatorLayout>
+</android.support.v7.widget.CardView>

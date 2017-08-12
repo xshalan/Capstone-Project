@@ -37,7 +37,7 @@
     <string name="sign_up_account">Sign up</string>
     <string name="log_in_statment">LOG IN</string>
     <string name="login_account">LOGIN</string>
-    <string name="about_space">About</string>
+    <string name="about_space">Overview</string>
     <string name="lorem">lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem</string>
     <string name="comments_space">Comments</string>
     <string name="enter_a_comment">Enter a comment</string>
@@ -85,5 +85,6 @@
         <item>Suez</item>
     </string-array>
     <string name="title_activity_map">Map</string>
+    <string name="space_phone">phone</string>
 
 </resources>
