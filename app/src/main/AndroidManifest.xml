@@ -25,7 +25,11 @@
             android:name=".Activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.DetailsActivity"
@@ -57,12 +61,11 @@
             android:value="@string/google_maps_key" />
 
 
-        <activity android:name=".Activities.NearbyActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name=".Activities.NearbyActivity"
+            android:label="Nearby Spaces"
+            android:theme="@style/AppTheme.ActionBar.Transparent">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
     </application>

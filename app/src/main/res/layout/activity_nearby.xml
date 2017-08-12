@@ -1,22 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_bg"
-    tools:context="app.com.shalan.spacego.Activities.NearbyActivity">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".Activities.DetailsActivity">
 
-    <FrameLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="false"
+        android:orientation="vertical">
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/connection_image_state"
-            android:src="@drawable/whoops_connection"
-            android:visibility="gone" />
-    </FrameLayout>
+            android:id="@+id/nearby_toolbarTitle"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:typeface="normal"
+            android:background="@color/colorPrimary"
+            android:text="Nearby Spaces"/>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/nearby_tabLayour"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/colorAccent"
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabIndicatorHeight="2dp"
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/nearby_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

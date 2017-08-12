@@ -25,6 +25,10 @@ public class User {
         this.userProfileImg = userProfileImg;
     }
 
+    public User() {
+
+    }
+
     public String getUsername() {
         return username;
     }

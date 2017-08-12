@@ -53,6 +53,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="115dp"
                 android:layout_marginLeft="16dp"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
                 android:layout_weight="1">
                 <EditText
                     android:id="@+id/commentInput"

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_bg"
-    tools:context="app.com.shalan.spacego.Fragments.NearbyMapFragment">
+    tools:context="app.com.shalan.spacego.Fragments.NearbyListFragment">
 
     <ImageView
         android:id="@+id/nearby_whoops"
@@ -12,11 +12,11 @@
         android:src="@drawable/whoops_nearby"
         android:visibility="gone" />
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/nearbyMapView"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/nearby_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </com.google.android.gms.maps.MapView>
+    </android.support.v7.widget.RecyclerView>
 
 </FrameLayout>
