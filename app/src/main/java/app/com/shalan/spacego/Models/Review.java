@@ -10,14 +10,12 @@ import java.util.Map;
  * Created by noura on 13/08/2017.
  */
 
-public class Review implements Parcelable
-{
+public class Review implements Parcelable {
 
-    private String spaceId;
     private String userId;
     private String review;
-    private String rating;
-    private String date;
+    private float rating;
+    private Long date;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     public final static Parcelable.Creator<Review> CREATOR = new Creator<Review>() {
 
@@ -27,12 +25,11 @@ public class Review implements Parcelable
         })
         public Review createFromParcel(Parcel in) {
             Review instance = new Review();
-            instance.spaceId = ((String) in.readValue((String.class.getClassLoader())));
             instance.userId = ((String) in.readValue((String.class.getClassLoader())));
             instance.review = ((String) in.readValue((String.class.getClassLoader())));
-            instance.rating = ((String) in.readValue((String.class.getClassLoader())));
-            instance.date = ((String) in.readValue((String.class.getClassLoader())));
-            instance.additionalProperties = ((Map<String, Object> ) in.readValue((Map.class.getClassLoader())));
+            instance.rating = ((float) in.readValue((Float.class.getClassLoader())));
+            instance.date = ((Long) in.readValue((Long.class.getClassLoader())));
+            instance.additionalProperties = ((Map<String, Object>) in.readValue((Map.class.getClassLoader())));
             return instance;
         }
 
@@ -40,16 +37,8 @@ public class Review implements Parcelable
             return (new Review[size]);
         }
 
-    }
-            ;
+    };
 
-    public String getSpaceId() {
-        return spaceId;
-    }
-
-    public void setSpaceId(String spaceId) {
-        this.spaceId = spaceId;
-    }
 
     public String getUserId() {
         return userId;
@@ -67,19 +56,19 @@ public class Review implements Parcelable
         this.review = review;
     }
 
-    public String getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
-    public String getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 
@@ -92,7 +81,6 @@ public class Review implements Parcelable
     }
 
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(spaceId);
         dest.writeValue(userId);
         dest.writeValue(review);
         dest.writeValue(rating);
