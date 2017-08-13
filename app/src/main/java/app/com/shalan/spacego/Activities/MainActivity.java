@@ -163,10 +163,13 @@ public class MainActivity extends AppCompatActivity
                 viewHolder.setOnItemClickListener(new onSpaceClickListener() {
                     @Override
                     public void onSpaceClick(View view, int position) {
+                        DatabaseReference mDatabaseReference = getRef(position) ;
                         Log.v(TAG, Integer.toString(position) + model.getName());
                         Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
                         intent.putExtra("spaceModel", model);
+                        intent.putExtra("spaceID", mDatabaseReference.getKey());
                         startActivity(intent);
+
                     }
                 });
             }

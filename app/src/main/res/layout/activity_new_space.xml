@@ -37,9 +37,9 @@
                     android:typeface="normal" />
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/space_name_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/space_name_text"
                     android:hint="@string/space_name_hint"
                     android:textColorHint="@color/textColorHint"
                     android:textSize="14sp"
@@ -56,9 +56,9 @@
                     android:typeface="normal" />
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/space_desc_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/space_desc_text"
                     android:hint="@string/space_desc_hint"
                     android:textColorHint="@color/textColorHint"
                     android:textSize="14sp"
@@ -329,184 +329,169 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp">
-                <LinearLayout
+
+                <app.com.shalan.spacego.Activities.AutoGridLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_horizontal">
-                    <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:columnCount="3"
+
+                    app:columnWidth="140dp">
+
+                    <ToggleButton
+                        android:id="@+id/feature_fast_wifi"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ToggleButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:id="@+id/feature_fast_wifi"
-                            android:layout_margin="10dp"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:textOff="@string/fast_wifi"
-                            android:textOn="Fast WiFi"
-                            android:textColor="@drawable/feature_tag_textcolor"
-                            android:background="@drawable/features_tag"/>
-                        <ToggleButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_margin="10dp"
-                            android:id="@+id/feature_free_coffee"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:textOff="@string/free_coffee"
-                            android:textOn="Free Coffee"
-                            android:textColor="@drawable/feature_tag_textcolor"
-                            android:background="@drawable/features_tag"/>
+                        android:layout_height="25dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/features_tag"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:textColor="@drawable/feature_tag_textcolor"
+                        android:textOff="@string/fast_wifi"
+                        android:textOn="Fast WiFi" />
 
-                    </LinearLayout>
-                    <LinearLayout
+                    <ToggleButton
+                        android:id="@+id/feature_free_coffee"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ToggleButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_margin="10dp"
-                            android:id="@+id/feature_24_hour"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:textOff="@string/_24_hour"
-                            android:textOn="24 Hour"
-                            android:textColor="@drawable/feature_tag_textcolor"
-                            android:background="@drawable/features_tag"/>
-                        <ToggleButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_margin="10dp"
-                            android:id="@+id/feature_printer_access"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:textOff="@string/printer_access"
-                            android:textOn="Printer Access"
-                            android:textColor="@drawable/feature_tag_textcolor"
-                            android:background="@drawable/features_tag"/>
+                        android:layout_height="25dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/features_tag"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:textColor="@drawable/feature_tag_textcolor"
+                        android:textOff="@string/free_coffee"
+                        android:textOn="Free Coffee" />
 
-                    </LinearLayout>
-                    <LinearLayout
+
+                    <ToggleButton
+                        android:id="@+id/feature_24_hour"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ToggleButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_margin="10dp"
-                            android:id="@+id/feature_free_parking"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:textOff="@string/free_parking"
-                            android:textOn="Free Parking"
-                            android:textColor="@drawable/feature_tag_textcolor"
-                            android:background="@drawable/features_tag"/>
-                        <ToggleButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_margin="10dp"
-                            android:id="@+id/feature_kitchenette"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:textOff="@string/kitchenette"
-                            android:textOn="Kitchenette"
-                            android:textColor="@drawable/feature_tag_textcolor"
-                            android:background="@drawable/features_tag"/>
+                        android:layout_height="25dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/features_tag"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:textColor="@drawable/feature_tag_textcolor"
+                        android:textOff="@string/_24_hour"
+                        android:textOn="24 Hour" />
 
-                    </LinearLayout>
-                    <LinearLayout
+                    <ToggleButton
+                        android:id="@+id/feature_printer_access"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ToggleButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_margin="10dp"
-                            android:id="@+id/feature_membership"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:textOff="@string/membership"
-                            android:textOn="Membership"
-                            android:textColor="@drawable/feature_tag_textcolor"
-                            android:background="@drawable/features_tag"/>
-                        <ToggleButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_margin="10dp"
-                            android:id="@+id/feature_green_space"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:textOff="@string/green_space"
-                            android:textOn="Green Space"
-                            android:textColor="@drawable/feature_tag_textcolor"
-                            android:background="@drawable/features_tag"/>
+                        android:layout_height="25dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/features_tag"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:textColor="@drawable/feature_tag_textcolor"
+                        android:textOff="@string/printer_access"
+                        android:textOn="Printer Access" />
 
-                    </LinearLayout>
-                    <LinearLayout
+
+                    <ToggleButton
+                        android:id="@+id/feature_free_parking"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ToggleButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_margin="10dp"
-                            android:id="@+id/feature_conference"
-                            android:textOff="@string/conference"
-                            android:textOn="Conference"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:textColor="@drawable/feature_tag_textcolor"
-                            android:background="@drawable/features_tag"/>
-                        <ToggleButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_margin="10dp"
-                            android:id="@+id/feature_office"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:textOff="@string/private_offices"
-                            android:textOn="Private Offices"
-                            android:textColor="@drawable/feature_tag_textcolor"
-                            android:background="@drawable/features_tag"/>
+                        android:layout_height="25dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/features_tag"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:textColor="@drawable/feature_tag_textcolor"
+                        android:textOff="@string/free_parking"
+                        android:textOn="Free Parking" />
 
-                    </LinearLayout>
-                    <LinearLayout
+                    <ToggleButton
+                        android:id="@+id/feature_kitchenette"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ToggleButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_margin="10dp"
-                            android:id="@+id/feature_public_transporter"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:textOff="@string/public_transpor"
-                            android:textOn="Public Transpor."
-                            android:textColor="@drawable/feature_tag_textcolor"
-                            android:background="@drawable/features_tag"/>
-                        <ToggleButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_margin="10dp"
-                            android:id="@+id/feature_maker_space"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:textOff="@string/maker_space"
-                            android:textOn="Maker Space"
-                            android:textColor="@drawable/feature_tag_textcolor"
-                            android:background="@drawable/features_tag"/>
+                        android:layout_height="25dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/features_tag"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:textColor="@drawable/feature_tag_textcolor"
+                        android:textOff="@string/kitchenette"
+                        android:textOn="Kitchenette" />
 
-                    </LinearLayout>
 
-                </LinearLayout>
+                    <ToggleButton
+                        android:id="@+id/feature_membership"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/features_tag"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:textColor="@drawable/feature_tag_textcolor"
+                        android:textOff="@string/membership"
+                        android:textOn="Membership" />
+
+                    <ToggleButton
+                        android:id="@+id/feature_green_space"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/features_tag"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:textColor="@drawable/feature_tag_textcolor"
+                        android:textOff="@string/green_space"
+                        android:textOn="Green Space" />
+
+
+                    <ToggleButton
+                        android:id="@+id/feature_conference"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/features_tag"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:textColor="@drawable/feature_tag_textcolor"
+                        android:textOff="@string/conference"
+                        android:textOn="Conference" />
+
+                    <ToggleButton
+                        android:id="@+id/feature_office"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/features_tag"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:textColor="@drawable/feature_tag_textcolor"
+                        android:textOff="@string/private_offices"
+                        android:textOn="Private Offices" />
+
+
+                    <ToggleButton
+                        android:id="@+id/feature_public_transporter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/features_tag"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:textColor="@drawable/feature_tag_textcolor"
+                        android:textOff="@string/public_transpor"
+                        android:textOn="Public Transpor." />
+
+                    <ToggleButton
+                        android:id="@+id/feature_maker_space"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/features_tag"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:textColor="@drawable/feature_tag_textcolor"
+                        android:textOff="@string/maker_space"
+                        android:textOn="Maker Space" />
+
+
+                </app.com.shalan.spacego.Activities.AutoGridLayout>
 
 
             </android.support.v7.widget.CardView>
+
             <Button
                 android:id="@+id/id_add_space"
                 android:layout_width="match_parent"
@@ -524,17 +509,16 @@
     </android.support.v4.widget.NestedScrollView>
 
 
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/add_image_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tint="@android:color/white"
-            android:layout_marginRight="16dp"
-            app:borderWidth="0dp"
-            app:elevation="6dp"
-            app:fabSize="normal"
-            app:srcCompat="@drawable/add_image"
-            app:layout_anchor="@id/new_space_app_bar"
-            app:layout_anchorGravity="bottom|right|end"/>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_image_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:tint="@android:color/white"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:fabSize="normal"
+        app:layout_anchor="@id/new_space_app_bar"
+        app:layout_anchorGravity="bottom|right|end"
+        app:srcCompat="@drawable/add_image" />
 </android.support.design.widget.CoordinatorLayout>

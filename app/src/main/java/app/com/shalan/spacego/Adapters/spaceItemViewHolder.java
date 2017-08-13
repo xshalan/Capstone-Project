@@ -18,6 +18,7 @@ public class spaceItemViewHolder extends RecyclerView.ViewHolder
     public ImageView spaceImage;
     public View mView;
     public onSpaceClickListener mOnSpaceClickListener ;
+
     public spaceItemViewHolder(View itemView) {
         super(itemView);
         spaceName = (TextView) itemView.findViewById(R.id.item_space_name);

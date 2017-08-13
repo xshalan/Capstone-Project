@@ -28,6 +28,7 @@ public class DetailsActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private Space spaceModel;
+    private String spaceID ;
     private List<Fragment> mFragmentList = new ArrayList<>();
 
     @Override
@@ -39,6 +40,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         //get spaceModel data from mainActivity
         spaceModel = getIntent().getExtras().getParcelable("spaceModel");
+        spaceID = getIntent().getStringExtra("spaceID");
         Log.v(TAG, spaceModel.getName());
 
         // Implemeting UI by findviewById
@@ -46,7 +48,7 @@ public class DetailsActivity extends AppCompatActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tabs_Details);
 
         //Implementing viewPager in Details screen
-        mFragmentList.add(AboutFragment.newInstance(spaceModel.getDescription()));
+        mFragmentList.add(AboutFragment.newInstance(spaceModel,spaceID));
         mFragmentList.add(FeatureFragment.newInstance(spaceModel.getFeatures()));
         mFragmentList.add(MapFragment.newInstance(spaceModel.getName(),spaceModel.getLatitude(),spaceModel.getLongitude()));
         viewPagerAdapter adapter = new viewPagerAdapter(getSupportFragmentManager());
