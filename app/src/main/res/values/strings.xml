@@ -101,5 +101,6 @@
     <string name="time_ago_months">%d months</string>
     <string name="time_ago_year">about a year</string>
     <string name="time_ago_years">%d years</string>
+    <string name="how_you_rate">How would you rate this space?</string>
 
 </resources>

@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ import java.util.List;
 import app.com.shalan.spacego.Adapters.nearbyViewPagerAdater;
 import app.com.shalan.spacego.Fragments.NearbyListFragment;
 import app.com.shalan.spacego.Fragments.NearbyMapFragment;
+import app.com.shalan.spacego.Handler.Utils;
 import app.com.shalan.spacego.Models.Space;
 import app.com.shalan.spacego.R;
 
@@ -78,21 +80,27 @@ public class NearbyActivity extends AppCompatActivity implements
 
         mViewPager = (ViewPager) findViewById(R.id.nearby_viewPager);
         mTabLayout = (TabLayout) findViewById(R.id.nearby_tabLayour);
+        ImageView connectionWhoops = (ImageView) findViewById(R.id.connection_whoops);
 
-        buildGoogleApiClient();
-        getAllSpaceLocation();
+        if (!Utils.isConnected(getApplicationContext())) {
+            connectionWhoops.setVisibility(View.VISIBLE);
+        }else{
+            buildGoogleApiClient();
+            getAllSpaceLocation();
+            adapter = new nearbyViewPagerAdater(getSupportFragmentManager());
 
-        adapter = new nearbyViewPagerAdater(getSupportFragmentManager());
+            mViewPager.setPageTransformer(true, new ViewPager.PageTransformer() {
+                @Override
+                public void transformPage(View page, float position) {
+                }
 
-        mViewPager.setPageTransformer(true, new ViewPager.PageTransformer() {
-            @Override
-            public void transformPage(View page, float position) {
-            }
+            });
+            mTabLayout.setupWithViewPager(mViewPager);
 
-        });
-        mTabLayout.setupWithViewPager(mViewPager);
-        Log.v(TAG,nearbySpaces.toString());
-        Log.v(TAG,spacesLocation.toString());
+        }
+
+
+
     }
 
 
@@ -184,13 +192,17 @@ public class NearbyActivity extends AppCompatActivity implements
 
     @Override
     protected void onStart() {
-        mGoogleApiClient.connect();
+        if(mGoogleApiClient!=null){
+            mGoogleApiClient.connect();
+        }
         super.onStart();
     }
 
     @Override
     protected void onStop() {
-        mGoogleApiClient.disconnect();
+        if(mGoogleApiClient!=null){
+            mGoogleApiClient.disconnect();
+        }
         super.onStop();
     }
 

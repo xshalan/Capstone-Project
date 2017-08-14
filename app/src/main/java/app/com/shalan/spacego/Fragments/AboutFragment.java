@@ -74,9 +74,10 @@ public class AboutFragment extends Fragment {
         myRef = database.getReference("Reviews").child(spaceID);
 
         if ((spaceModel != null)) {
+
             aboutSpaceTextview.setText(spaceModel.getDescription());
             spaceAddress.setText(spaceModel.getAddress());
-            spacePhone.setText("0" + Integer.toString(spaceModel.getPhone()));
+            spacePhone.setText("0" + spaceModel.getPhone());
             spaceWebsite.setText(spaceModel.getWebsite());
         }
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());

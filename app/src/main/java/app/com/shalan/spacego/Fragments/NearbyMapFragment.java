@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.com.shalan.spacego.Handler.Utils;
 import app.com.shalan.spacego.R;
 
 
@@ -45,6 +46,12 @@ public class NearbyMapFragment extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.fragment_nearby_map, container, false);
         mMapView = (MapView) view.findViewById(R.id.nearbyMapView);
         ImageView whoops = (ImageView) view.findViewById(R.id.nearby_whoops);
+        ImageView connectionWhoops = (ImageView) view.findViewById(R.id.connection_whoops);
+
+        if (!Utils.isConnected(getContext())) {
+            connectionWhoops.setVisibility(View.VISIBLE);
+            mMapView.setVisibility(View.GONE);
+        }
         if (!(spacesLocation.size() > 0)) {
             whoops.setVisibility(View.VISIBLE);
             mMapView.setVisibility(View.GONE);

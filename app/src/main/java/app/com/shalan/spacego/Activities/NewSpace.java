@@ -281,6 +281,7 @@ public class NewSpace extends AppCompatActivity implements
     }
 
     public void addSpace(Space spaceModel, List<String> featureList) {
+        Double rating =0.0 ;
         if (nameText.getText() != null && descriptionText.getText() != null
                 && addressText.getText() != null && stateSpinner.getSelectedItem() != null
                 && featureList.size() != 0) {
@@ -295,6 +296,7 @@ public class NewSpace extends AppCompatActivity implements
             spaceModel.setWebsite(websiteText.getText().toString());
             spaceModel.setPhone(Integer.valueOf(phoneText.getText().toString()));
             spaceModel.setImageUrl(imageCoverUrl);
+            spaceModel.setRating(rating);
         } else {
             Toast.makeText(getApplicationContext(), "Check your informaiton!", Toast.LENGTH_SHORT).show();
 

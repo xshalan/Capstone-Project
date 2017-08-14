@@ -1,5 +1,6 @@
 package app.com.shalan.spacego.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import app.com.shalan.spacego.Adapters.spaceItemViewHolder;
+import app.com.shalan.spacego.Handler.Utils;
 import app.com.shalan.spacego.Handler.onSpaceClickListener;
 import app.com.shalan.spacego.Models.Space;
 import app.com.shalan.spacego.Models.User;
@@ -40,7 +43,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private String TAG = MainActivity.class.getSimpleName();
-
+    private Context mContext ;
     @BindView(R.id.spaces_recyclerView)
     RecyclerView spaceRecyclerView;
     @BindView(R.id.fab)
@@ -49,6 +52,8 @@ public class MainActivity extends AppCompatActivity
     Toolbar toolbar;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
+    @BindView(R.id.connection_whoops)
+    ImageView connectionWhoops;
 
     //Firebase variables declaration
     private static FirebaseDatabase spaceDatabase;
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = getApplicationContext() ;
         setContentView(R.layout.activity_main);
         //Bind ButterKnife library to UI
         ButterKnife.bind(this);
@@ -80,52 +86,56 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        if (!Utils.isConnected(mContext)) {
+            connectionWhoops.setVisibility(View.VISIBLE);
+            fab.setVisibility(View.INVISIBLE);
+        } else {
+            // Firebase authentication configuration
+            mFirebaseAuth = FirebaseAuth.getInstance();
+            mAuthListener = new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    if (user != null) {
+                        // User is signed in
+                        Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                        spaceDatabase = FirebaseDatabase.getInstance();
+                        spaceDatabaseRef = spaceDatabase.getReference("Users").child(user.getUid());
 
-        // Firebase authentication configuration
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    spaceDatabase = FirebaseDatabase.getInstance();
-                    spaceDatabaseRef = spaceDatabase.getReference("Users").child(user.getUid());
+                        // Access "USER" database to get all information about the signed user like (username)
+                        spaceDatabaseRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    // Access "USER" database to get all information about the signed user like (username)
-                    spaceDatabaseRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                User mUser = dataSnapshot.getValue(User.class);
+                                profileUsername.setText(mUser.getUsername());
+                            }
 
-                            User mUser = dataSnapshot.getValue(User.class);
-                            profileUsername.setText(mUser.getUsername());
-                        }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                        profileUsername.setVisibility(View.VISIBLE);
+                        Menu nav_Menu = navigationView.getMenu();
 
-                        }
-                    });
-                    profileUsername.setVisibility(View.VISIBLE);
-                    Menu nav_Menu = navigationView.getMenu();
+                        // show sign out icon in NavigationDrawer Menu
+                        nav_Menu.findItem(R.id.sign_in).setVisible(false);
+                        nav_Menu.findItem(R.id.sign_out).setVisible(true);
+                    } else {
+                        // User is signed out
+                        Log.d(TAG, "onAuthStateChanged:signed_out");
 
-                    // show sign out icon in NavigationDrawer Menu
-                    nav_Menu.findItem(R.id.sign_in).setVisible(false);
-                    nav_Menu.findItem(R.id.sign_out).setVisible(true);
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                        profileUsername.setVisibility(View.INVISIBLE);
+                        Menu nav_Menu = navigationView.getMenu();
 
-                    profileUsername.setVisibility(View.INVISIBLE);
-                    Menu nav_Menu = navigationView.getMenu();
-
-                    // show sign in icon in NavigationDrawer Menu
-                    nav_Menu.findItem(R.id.sign_out).setVisible(false);
-                    nav_Menu.findItem(R.id.sign_in).setVisible(true);
+                        // show sign in icon in NavigationDrawer Menu
+                        nav_Menu.findItem(R.id.sign_out).setVisible(false);
+                        nav_Menu.findItem(R.id.sign_in).setVisible(true);
+                    }
                 }
-            }
-        };
+            };
+        }
         // Configure fab button to add new space
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,28 +146,33 @@ public class MainActivity extends AppCompatActivity
         });
 
         navigationView.setNavigationItemSelectedListener(this);
-        if (spaceDatabase == null) {
+        if (spaceDatabase == null && Utils.isConnected(mContext)) {
             spaceDatabase = FirebaseDatabase.getInstance();
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         }
-
         spaceDatabase = FirebaseDatabase.getInstance();
         spaceDatabaseRef = spaceDatabase.getReference("Spaces").child("Egypt");
         // set up Recycler view layout
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
         spaceRecyclerView.setLayoutManager(layoutManager);
         recyclerAdapter = new FirebaseRecyclerAdapter<Space, spaceItemViewHolder>(
                 Space.class,
                 R.layout.item_card_layout,
                 spaceItemViewHolder.class,
-                spaceDatabaseRef) {
+                spaceDatabaseRef.orderByChild("rating").limitToFirst(10) ) {
+            @Override
+            protected void onDataChanged() {
+                recyclerAdapter.notifyDataSetChanged();
+            }
 
             @Override
             protected void populateViewHolder(spaceItemViewHolder viewHolder, final Space model, int position) {
                 viewHolder.spaceName.setText(model.getName());  // Space name
-                viewHolder.spaceRate.setText("9");          // Space rate
-                Glide.with(MainActivity.this).load(model.getImageUrl()).into(viewHolder.spaceImage); //space Img
+                viewHolder.spaceRate.setText(Double.toString(model.getRating()));          // Space rate
+                Glide.with(mContext).load(model.getImageUrl()).into(viewHolder.spaceImage); //space Img
                 // Hanfle when space onClicked
                 viewHolder.setOnItemClickListener(new onSpaceClickListener() {
                     @Override
@@ -174,6 +189,7 @@ public class MainActivity extends AppCompatActivity
             }
         };
         spaceRecyclerView.setAdapter(recyclerAdapter);
+
     }
 
     @Override
@@ -243,7 +259,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onStart() {
         super.onStart();
-        mFirebaseAuth.addAuthStateListener(mAuthListener);
+        if (mFirebaseAuth != null) {
+            mFirebaseAuth.addAuthStateListener(mAuthListener);
+        }
+
+
     }
 
     @Override

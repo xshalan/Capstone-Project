@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +27,12 @@ public class DetailsActivity extends AppCompatActivity {
     private String TAG = DetailsActivity.class.getSimpleName();
     @BindView(R.id.details_activity_toolbar)
     Toolbar detailsToolbar;
+    @BindView(R.id.backdrop_image_cover)
+    ImageView spaceCoverImage ;
+
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
+
     private Space spaceModel;
     private String spaceID ;
     private List<Fragment> mFragmentList = new ArrayList<>();
@@ -41,7 +47,8 @@ public class DetailsActivity extends AppCompatActivity {
         //get spaceModel data from mainActivity
         spaceModel = getIntent().getExtras().getParcelable("spaceModel");
         spaceID = getIntent().getStringExtra("spaceID");
-        Log.v(TAG, spaceModel.getName());
+        //set cover Image for details activity
+        Glide.with(getApplicationContext()).load(spaceModel.getImageUrl()).into(spaceCoverImage);
 
         // Implemeting UI by findviewById
         mViewPager = (ViewPager) findViewById(R.id.viewPager_Details);
@@ -51,6 +58,7 @@ public class DetailsActivity extends AppCompatActivity {
         mFragmentList.add(AboutFragment.newInstance(spaceModel,spaceID));
         mFragmentList.add(FeatureFragment.newInstance(spaceModel.getFeatures()));
         mFragmentList.add(MapFragment.newInstance(spaceModel.getName(),spaceModel.getLatitude(),spaceModel.getLongitude()));
+
         viewPagerAdapter adapter = new viewPagerAdapter(getSupportFragmentManager());
         adapter.setmFragmentList(mFragmentList);
         mViewPager.setAdapter(adapter);

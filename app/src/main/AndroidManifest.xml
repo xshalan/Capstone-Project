@@ -64,7 +64,10 @@
             android:name=".Activities.NearbyActivity"
             android:label="Nearby Spaces"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Activities.writeReviewActivity"></activity>
+
+        <activity android:name=".Activities.writeReviewActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>

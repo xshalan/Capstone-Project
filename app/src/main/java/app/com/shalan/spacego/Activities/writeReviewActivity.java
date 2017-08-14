@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
@@ -38,18 +39,19 @@ public class writeReviewActivity extends AppCompatActivity {
     RatingBar spaceRatingBar;
     @BindView(R.id.submit_review)
     Button submitReview;
+    @BindView(R.id.ReviewprogressBar)
+    ProgressBar progressBar;
 
     private FirebaseAuth mAuth;
     FirebaseDatabase database;
-    DatabaseReference usersRef;
 
     String spaceID;
     String userID;
     String username;
-    String review;
     float rating;
 
-
+    Double oldRating ;
+    Double newRating ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,27 +62,12 @@ public class writeReviewActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("Reviews").child(spaceID);
+        final DatabaseReference ReviewRef = database.getReference("Reviews").child(spaceID);
+
         FirebaseUser user = mAuth.getCurrentUser();
 
         userID = user.getUid();
-        DatabaseReference userRef = database.getReference("Users").child(userID);
-
-        // Access "USER" database to get all information about the signed user like (username)
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                User mUser = dataSnapshot.getValue(User.class);
-                username = mUser.getUsername();
-                Log.v(TAG, username);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        setUsername(mAuth, userID);
         spaceRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
@@ -94,6 +81,7 @@ public class writeReviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (rating != 0) {
+                    progressBar.setVisibility(View.VISIBLE);
                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                     Review review = new Review();
                     review.setDate(timestamp.getTime());
@@ -104,33 +92,59 @@ public class writeReviewActivity extends AppCompatActivity {
                     Log.v(TAG, username);
                     Log.v(TAG, commentInput.getText().toString());
                     submitReview.setClickable(false);
-                    myRef.push().setValue(review).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    ReviewRef.push().setValue(review).addOnCompleteListener(new OnCompleteListener<Void>() {
+
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
                             if (task.isSuccessful()) {
-                                finish();
+                                double newRate = rating ;
+                                setNewRating(newRate,spaceID,ReviewRef) ;
+                                progressBar.setProgress(View.INVISIBLE);
                                 Toast.makeText(getApplicationContext(), "Your review added successfully!", Toast.LENGTH_SHORT).show();
+                                onBackPressed();
                             } else {
                                 Toast.makeText(getApplicationContext(), "Failed! try again", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please! Tell us your review!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
     }
 
-    private void getUsername(FirebaseAuth mFirebaseAuth) {
+    private void setUsername(FirebaseAuth mFirebaseAuth, String userId) {
         this.mAuth = mFirebaseAuth;
-        usersRef = database.getReference("Users").child(mFirebaseAuth.getCurrentUser().getUid());
-        usersRef.addValueEventListener(new ValueEventListener() {
+        if (mFirebaseAuth != null) {
+            DatabaseReference userRef = database.getReference("Users").child(userId);
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    User mUser = dataSnapshot.getValue(User.class);
+                    username = mUser.getUsername();
+                    Log.v(TAG, username);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+    }
+
+    private void setNewRating(Double newRate,String spaceID,DatabaseReference reviewRef){
+        this.newRating = newRate ;
+        final DatabaseReference spaceRef = database.getReference("Spaces").child("Egypt").child(spaceID);
+        spaceRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User mUser = dataSnapshot.getValue(User.class);
-                username = mUser.getUsername();
-                Log.v(TAG, username);
+                oldRating = (Double) dataSnapshot.child("rating").getValue();
+                Log.v(TAG,Double.toString(oldRating));
             }
 
             @Override
@@ -138,5 +152,21 @@ public class writeReviewActivity extends AppCompatActivity {
 
             }
         });
+        reviewRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long reviewsCount = dataSnapshot.getChildrenCount();
+                Log.v(TAG,Long.toString(reviewsCount));
+                double newRate = (newRating+oldRating) / (reviewsCount -1);
+                spaceRef.child("rating").setValue(Math.floor(newRate));
+                Log.v(TAG,Double.toString(newRate));
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 }

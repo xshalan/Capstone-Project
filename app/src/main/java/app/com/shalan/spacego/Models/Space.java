@@ -22,6 +22,7 @@ public class Space implements Parcelable
     private List<String> features = null;
     private Double latitude;
     private Double longitude;
+    private Double rating ;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     public final static Parcelable.Creator<Space> CREATOR = new Creator<Space>() {
 
@@ -40,6 +41,7 @@ public class Space implements Parcelable
             instance.city = ((String) in.readValue((String.class.getClassLoader())));
             instance.country = ((String) in.readValue((String.class.getClassLoader())));
             instance.imageUrl = ((String) in.readValue((String.class.getClassLoader())));
+            instance.rating = ((Double) in.readValue((Double.class.getClassLoader())));
             in.readList(instance.features, (java.lang.String.class.getClassLoader()));
             instance.latitude = ((Double) in.readValue((Float.class.getClassLoader())));
             instance.longitude = ((Double) in.readValue((Float.class.getClassLoader())));
@@ -84,6 +86,7 @@ public class Space implements Parcelable
                  String city,
                  String country,
                  String imageUrl,
+                 Double rating,
                  List<String> features,
                  Double latitude,
                  Double longitude) {
@@ -99,7 +102,9 @@ public class Space implements Parcelable
         this.features = features;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.rating = rating ;
     }
+
 
 
 
@@ -109,6 +114,13 @@ public class Space implements Parcelable
 
     public void setName(String name) {
         this.name = name;
+    }
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 
     public String getDescription() {
@@ -208,6 +220,7 @@ public class Space implements Parcelable
         dest.writeValue(city);
         dest.writeValue(country);
         dest.writeValue(imageUrl);
+        dest.writeValue(rating);
         dest.writeList(features);
         dest.writeValue(latitude);
         dest.writeValue(longitude);

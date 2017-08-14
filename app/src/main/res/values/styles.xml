@@ -24,6 +24,7 @@
         <item name="colorAccent">@color/colorAccentNew</item>
 
     </style>
+
     <style name="AppTheme.Fullscreen" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -31,6 +32,10 @@
 
     </style>
 
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/Golden</item>
+        <item name="colorControlActivated">@color/gray</item>
+    </style>
 
 
 </resources>
