@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,17 +7,19 @@
     android:theme="@style/AppTheme.NoActionBar"
     tools:context="app.com.shalan.spacego.Activities.writeReviewActivity">
 
+    <ProgressBar
+        android:id="@+id/ReviewprogressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:id="@+id/ReviewprogressBar" />
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,17 +67,22 @@
             card_view:cardCornerRadius="3dp"
             card_view:cardElevation="4dp"
             card_view:cardUseCompatPadding="true">
-
-            <EditText
-                android:id="@+id/comment_edittext"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:paddingTop="16dp"
-                android:paddingLeft="16dp"
-                android:focusable="false"
-                android:layout_gravity="top|left"
-                android:gravity="top|left"
-                android:hint="Tell us about this space..." />
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+                <EditText
+                    android:id="@+id/comment_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:paddingTop="16dp"
+                    android:paddingLeft="16dp"
+                    android:layout_gravity="top|left"
+                    android:gravity="top|left"
+                    android:hint="Tell us about this space..." />
+            </LinearLayout>
+
 
         </android.support.v7.widget.CardView>
 
@@ -91,4 +98,4 @@
             android:text="Submit"
             android:textColor="@color/white" />
     </LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
+</FrameLayout>

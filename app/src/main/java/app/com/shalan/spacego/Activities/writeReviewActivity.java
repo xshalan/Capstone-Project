@@ -2,6 +2,7 @@ package app.com.shalan.spacego.Activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -92,6 +93,7 @@ public class writeReviewActivity extends AppCompatActivity {
                     Log.v(TAG, username);
                     Log.v(TAG, commentInput.getText().toString());
                     submitReview.setClickable(false);
+                    submitReview.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.submit_inactive_bg));
                     ReviewRef.push().setValue(review).addOnCompleteListener(new OnCompleteListener<Void>() {
 
                         @Override
@@ -157,7 +159,7 @@ public class writeReviewActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long reviewsCount = dataSnapshot.getChildrenCount();
                 Log.v(TAG,Long.toString(reviewsCount));
-                double newRate = (newRating+oldRating) / (reviewsCount -1);
+                double newRate = (newRating+oldRating) / (reviewsCount );
                 spaceRef.child("rating").setValue(Math.floor(newRate));
                 Log.v(TAG,Double.toString(newRate));
             }
