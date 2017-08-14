@@ -138,6 +138,7 @@ public class AboutFragment extends Fragment {
 
             }
         };
+        mReviewsRecyclerView.setNestedScrollingEnabled(false);
         mReviewsRecyclerView.setAdapter(mRecyclerAdapter);
     }
 

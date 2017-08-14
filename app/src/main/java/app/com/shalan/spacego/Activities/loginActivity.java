@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,8 +33,7 @@ public class loginActivity extends AppCompatActivity {
     Button login;
     @BindView(R.id.login_account)
     Button signup;
-    @BindView(R.id.signUp_progressBar)
-    ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +73,6 @@ public class loginActivity extends AppCompatActivity {
     }
 
     private void login() {
-        progressBar.setVisibility(View.VISIBLE);
-
         final String password = passwordInput.getText().toString();
         final String email = emailInput.getText().toString();
         if (TextUtils.isEmpty(email)) {
@@ -89,7 +85,6 @@ public class loginActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(loginActivity.this, MainActivity.class);
                             startActivity(intent);

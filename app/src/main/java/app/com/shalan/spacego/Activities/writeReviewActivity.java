@@ -90,8 +90,6 @@ public class writeReviewActivity extends AppCompatActivity {
                     review.setReview(commentInput.getText().toString());
                     review.setUserId(userID);
                     review.setUsername(username);
-                    Log.v(TAG, username);
-                    Log.v(TAG, commentInput.getText().toString());
                     submitReview.setClickable(false);
                     submitReview.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.submit_inactive_bg));
                     ReviewRef.push().setValue(review).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -103,7 +101,7 @@ public class writeReviewActivity extends AppCompatActivity {
                                 double newRate = rating ;
                                 setNewRating(newRate,spaceID,ReviewRef) ;
                                 progressBar.setProgress(View.INVISIBLE);
-                                Toast.makeText(getApplicationContext(), "Your review added successfully!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "You are awesome! Thanks", Toast.LENGTH_SHORT).show();
                                 onBackPressed();
                             } else {
                                 Toast.makeText(getApplicationContext(), "Failed! try again", Toast.LENGTH_SHORT).show();
@@ -145,7 +143,13 @@ public class writeReviewActivity extends AppCompatActivity {
         spaceRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                oldRating = (Double) dataSnapshot.child("rating").getValue();
+                if(dataSnapshot.child("rating").getValue() instanceof Long){
+                    Long Rating = (Long) dataSnapshot.child("rating").getValue();
+                    oldRating = Rating.doubleValue();
+
+                } else {
+                    oldRating = (Double) dataSnapshot.child("rating").getValue();
+                }
                 Log.v(TAG,Double.toString(oldRating));
             }
 

@@ -8,15 +8,10 @@
     android:orientation="vertical"
     tools:context="app.com.shalan.spacego.Activities.signUpActivity">
 
-    <ProgressBar
-        android:id="@+id/signUp_progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <ImageView
-        android:layout_width="237dp"
-        android:layout_height="234dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical"
         android:scaleType="centerCrop"
         android:src="@drawable/signup_bg" />
@@ -42,7 +37,6 @@
             android:layout_height="56dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="16dp"
             android:hint="@string/email"
             android:textColor="@color/colorAccentNew"
             android:textColorHint="@color/tw__composer_deep_gray" />
@@ -70,7 +64,7 @@
     <Button
         android:id="@+id/signup_account"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="56dp"
         android:layout_margin="13dp"
         android:background="@color/colorAccentNew"
         android:text="@string/login_account"
@@ -98,7 +92,7 @@
             android:layout_marginLeft="6dp"
             android:background="@drawable/login_border"
             android:gravity="center_horizontal|center_vertical"
-            android:padding="3dp"
+            android:padding="2dp"
             android:text="@string/sign_up_account"
             android:textColor="@color/colorPrimary" />
     </LinearLayout>
