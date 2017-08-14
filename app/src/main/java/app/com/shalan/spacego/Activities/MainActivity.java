@@ -97,10 +97,9 @@ public class MainActivity extends AppCompatActivity
                     spaceDatabaseRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot spaceSnapshot : dataSnapshot.getChildren()) {
-                                User mUser = dataSnapshot.getValue(User.class);
-                                profileUsername.setText(mUser.getUsername());
-                            }
+
+                            User mUser = dataSnapshot.getValue(User.class);
+                            profileUsername.setText(mUser.getUsername());
                         }
 
                         @Override
@@ -163,7 +162,7 @@ public class MainActivity extends AppCompatActivity
                 viewHolder.setOnItemClickListener(new onSpaceClickListener() {
                     @Override
                     public void onSpaceClick(View view, int position) {
-                        DatabaseReference mDatabaseReference = getRef(position) ;
+                        DatabaseReference mDatabaseReference = getRef(position);
                         Log.v(TAG, Integer.toString(position) + model.getName());
                         Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
                         intent.putExtra("spaceModel", model);

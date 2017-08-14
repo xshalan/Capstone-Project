@@ -29,8 +29,8 @@
                 android:gravity="center_vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:id="@+id/comment_profileImage"
                     android:src="@drawable/profile"
                     android:gravity="center_vertical"/>
@@ -46,38 +46,41 @@
                     android:gravity="center_vertical"/>
 
                 <TextView
+                    android:id="@+id/comment_Time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
                     android:layout_below="@+id/comment_username"
-                    android:text="Mohammed Shalan"
-                    android:gravity="center_vertical"/>
+                    android:layout_marginLeft="60dp"
+                    android:textSize="12sp"
+                    android:gravity="center_vertical"
+                    android:text="Mohammed Shalan" />
 
 
             </RelativeLayout>
 
             <RatingBar
-                android:id="@+id/space_ratingBar"
+                android:id="@+id/userRating"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="6dp"
-                android:paddingBottom="16dp"
                 android:isIndicator="true"
                 android:numStars="5"
+                android:paddingBottom="16dp"
                 android:rating="3"
                 android:stepSize="1.0" />
         </LinearLayout>
 
         <TextView
+            android:id="@+id/userReview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/lorem"/>
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="@string/lorem" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

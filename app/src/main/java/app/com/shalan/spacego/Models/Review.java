@@ -14,6 +14,7 @@ public class Review implements Parcelable {
 
     private String userId;
     private String review;
+    private String username;
     private float rating;
     private Long date;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -26,6 +27,7 @@ public class Review implements Parcelable {
         public Review createFromParcel(Parcel in) {
             Review instance = new Review();
             instance.userId = ((String) in.readValue((String.class.getClassLoader())));
+            instance.username = ((String) in.readValue((String.class.getClassLoader())));
             instance.review = ((String) in.readValue((String.class.getClassLoader())));
             instance.rating = ((float) in.readValue((Float.class.getClassLoader())));
             instance.date = ((Long) in.readValue((Long.class.getClassLoader())));
@@ -42,6 +44,14 @@ public class Review implements Parcelable {
 
     public String getUserId() {
         return userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setUserId(String userId) {
@@ -82,6 +92,7 @@ public class Review implements Parcelable {
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(userId);
+        dest.writeValue(username);
         dest.writeValue(review);
         dest.writeValue(rating);
         dest.writeValue(date);
