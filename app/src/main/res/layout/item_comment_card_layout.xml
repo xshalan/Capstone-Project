@@ -29,8 +29,8 @@
                 android:gravity="center_vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:id="@+id/comment_profileImage"
                     android:src="@drawable/profile"
                     android:gravity="center_vertical"/>
@@ -42,7 +42,7 @@
                     android:layout_marginTop="6dp"
                     android:id="@+id/comment_username"
                     android:text="Mohammed Shalan"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:gravity="center_vertical"/>
 
                 <TextView
@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/comment_username"
                     android:layout_marginLeft="60dp"
-                    android:textSize="12sp"
+                    android:textSize="9sp"
                     android:gravity="center_vertical"
                     android:text="Mohammed Shalan" />
 
@@ -70,7 +70,8 @@
                 android:numStars="5"
                 android:paddingBottom="16dp"
                 android:rating="3"
-                android:stepSize="1.0" />
+                android:stepSize="1.0"
+                android:theme="@style/RatingBar"/>
         </LinearLayout>
 
         <TextView

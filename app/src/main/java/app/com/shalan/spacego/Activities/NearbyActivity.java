@@ -1,12 +1,13 @@
 package app.com.shalan.spacego.Activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -16,13 +17,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,10 +35,7 @@ import app.com.shalan.spacego.Handler.Utils;
 import app.com.shalan.spacego.Models.Space;
 import app.com.shalan.spacego.R;
 
-public class NearbyActivity extends AppCompatActivity implements
-        GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+public class NearbyActivity extends AppCompatActivity implements LocationListener{
 
     private String TAG = NearbyActivity.class.getSimpleName();
 
@@ -56,19 +49,17 @@ public class NearbyActivity extends AppCompatActivity implements
     public List<Double> spacesDistance;
 
 
-    private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
-    private Location mLastLocation;
-
-    private double currentLatitude;
-    private double currentLongitude;
-    Double distanceTwoPoints ;
+    public static double currentLatitude = 0.0;
+    public static double currentLongitude = 0.0;
+    Double distanceTwoPoints;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-    nearbyViewPagerAdater adapter ;
-    private Space spaceModel;
+    nearbyViewPagerAdater adapter;
     private List<Fragment> mFragmentList = new ArrayList<>();
+    private FusedLocationProviderApi mFusedLocationClient;
 
+    LocationManager locationManager;
+    Location mlastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +68,7 @@ public class NearbyActivity extends AppCompatActivity implements
         TextView toolbarTitle = (TextView) findViewById(R.id.nearby_toolbarTitle);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "Fonts/Pacifico-Regular.ttf");
         toolbarTitle.setTypeface(typeface);
+        Log.v("onCreate", Double.toString(currentLatitude) + "  " + Double.toString(currentLongitude));
 
         mViewPager = (ViewPager) findViewById(R.id.nearby_viewPager);
         mTabLayout = (TabLayout) findViewById(R.id.nearby_tabLayour);
@@ -84,9 +76,15 @@ public class NearbyActivity extends AppCompatActivity implements
 
         if (!Utils.isConnected(getApplicationContext())) {
             connectionWhoops.setVisibility(View.VISIBLE);
-        }else{
-            buildGoogleApiClient();
-            getAllSpaceLocation();
+        } else {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+            if (ActivityCompat.checkSelfPermission(this
+                    , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
+                Log.v("checkSelfPermission", "Great!");
+
+            }
             adapter = new nearbyViewPagerAdater(getSupportFragmentManager());
 
             mViewPager.setPageTransformer(true, new ViewPager.PageTransformer() {
@@ -98,10 +96,9 @@ public class NearbyActivity extends AppCompatActivity implements
             mTabLayout.setupWithViewPager(mViewPager);
 
         }
-
-
-
     }
+
+
 
 
     private void getAllSpaceLocation() {
@@ -110,7 +107,7 @@ public class NearbyActivity extends AppCompatActivity implements
         nearbySpaces = new ArrayList<>();
         spacesLocation = new ArrayList<>();
         spacesName = new ArrayList<>();
-        spacesDistance = new ArrayList<>() ;
+        spacesDistance = new ArrayList<>();
 
         spaceDatabaseRef.addValueEventListener(new ValueEventListener() {
 
@@ -118,20 +115,22 @@ public class NearbyActivity extends AppCompatActivity implements
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot spaceSnapshot : dataSnapshot.getChildren()) {
                     Space space = spaceSnapshot.getValue(Space.class);
-                    int radius = 50 ;
-                    distanceTwoPoints = getDistance(space.getLatitude(), space.getLongitude(), 30.3159, 31.7229) ;
-                    if (inRange(distanceTwoPoints,radius )) {
+                    int radius = 50;
+                    Log.v("onDataChange", Double.toString(currentLatitude) + "  " + Double.toString(currentLongitude));
+
+                    distanceTwoPoints = getDistance(space.getLatitude(), space.getLongitude(), currentLatitude, currentLongitude);
+                    if (inRange(distanceTwoPoints, radius)) {
                         Log.v(TAG, "name: " + space.getName());
                         nearbySpaces.add(space);
                         Double[] spaceLocation = {space.getLatitude(), space.getLongitude()};
-                        String[] spaceName = {space.getName()} ;
+                        String[] spaceName = {space.getName()};
                         spacesName.add(spaceName);
                         spacesLocation.add(spaceLocation);
                         spacesDistance.add(distanceTwoPoints);
                     }
                 }
-                mFragmentList.add(NearbyListFragment.newInstance(nearbySpaces,spacesDistance));
-                mFragmentList.add(NearbyMapFragment.newInstance(spacesLocation,spacesName));
+                mFragmentList.add(NearbyListFragment.newInstance(nearbySpaces, spacesDistance));
+                mFragmentList.add(NearbyMapFragment.newInstance(spacesLocation, spacesName));
                 adapter.setmFragmentList(mFragmentList);
                 mViewPager.setAdapter(adapter);
             }
@@ -142,8 +141,6 @@ public class NearbyActivity extends AppCompatActivity implements
             }
         });
     }
-    // $sql = "SELECT *, ( 3959 * acos( cos( radians(" . $lat . ") ) * cos( radians( lat ) ) * cos( radians( lng )
-    // - radians(" . $lng . ") ) + sin( radians(" . $lat . ") ) * sin( radians( lat ) ) ) ) AS distance FROM your_table HAVING distance < 5";
 
     public Double getDistance(Double lat, Double lng, Double myLat, Double myLng) {
         /* This uses the ‘haversine’ formula to calculate the great-circle distance between two points
@@ -172,83 +169,52 @@ public class NearbyActivity extends AppCompatActivity implements
         return kmRadius * c;
 
     }
-    private boolean inRange(Double distance,int radius){
+
+    private boolean inRange(Double distance, int radius) {
         // if the distance between two point in range of radius
-        if(distance<radius){
-            return true ;
+        if (distance < radius) {
+            return true;
 
-        }else {
-            return false ;
+        } else {
+            return false;
         }
     }
 
-    protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-    }
 
-    @Override
-    protected void onStart() {
-        if(mGoogleApiClient!=null){
-            mGoogleApiClient.connect();
-        }
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        if(mGoogleApiClient!=null){
-            mGoogleApiClient.disconnect();
-        }
-        super.onStop();
-    }
-
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        // Create the LocationRequest object
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000);
-        mLocationRequest.setFastestInterval(1000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.v(TAG, "Connection failed: ConnectionResult.getErrorCode() = "+ connectionResult.getErrorCode());
-
-    }
 
     @Override
     public void onLocationChanged(Location location) {
-        mLastLocation = location;
-        currentLatitude = location.getLongitude();
-        currentLongitude = location.getLongitude();
-        Log.v(TAG, String.valueOf(currentLatitude));
-        Log.v(TAG, String.valueOf(currentLongitude));
-        Toast.makeText(getApplicationContext(),String.valueOf(currentLatitude)+"  "+ String.valueOf(currentLongitude),Toast.LENGTH_SHORT);
+        mlastLocation = location ;
+        currentLongitude = location.getLongitude() ;
+        currentLatitude = location.getLatitude() ;
     }
 
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
 
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.v("onStart", String.valueOf(currentLatitude));
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.v("onResume", String.valueOf(currentLatitude));
+        getAllSpaceLocation();
+
+    }
 }

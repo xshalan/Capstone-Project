@@ -1,99 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    tools:context="app.com.shalan.spacego.Activities.signUpActivity">
-
-    <ImageView
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:scaleType="centerCrop"
-        android:src="@drawable/signup_bg" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:gravity="center_horizontal"
-        android:text="@string/log_in_statment"
-        android:textColor="@color/tw__composer_deep_gray"
-        android:textSize="20sp" />
-
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColorHint="@color/tw__composer_deep_gray">
-
-        <EditText
-            android:id="@+id/email_signup"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:hint="@string/email"
-            android:textColor="@color/colorAccentNew"
-            android:textColorHint="@color/tw__composer_deep_gray" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColorHint="@color/tw__composer_deep_gray">
-
-        <EditText
-            android:id="@+id/password_signup"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="16dp"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textColor="@color/colorAccentNew"
-            android:textColorHint="@color/tw__composer_deep_gray" />
-    </android.support.design.widget.TextInputLayout>
-
-
-    <Button
-        android:id="@+id/signup_account"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_margin="13dp"
-        android:background="@color/colorAccentNew"
-        android:text="@string/login_account"
-        android:textColor="@color/white" />
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:text="@string/not_have_an_account"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/signup_bg" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center_horizontal"
+            android:text="@string/log_in_statment"
             android:textColor="@color/tw__composer_deep_gray"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/tw__composer_deep_gray">
+
+            <EditText
+                android:id="@+id/email_signup"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="@string/email"
+                android:textColor="@color/colorAccentNew"
+                android:textColorHint="@color/tw__composer_deep_gray" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/tw__composer_deep_gray">
+
+            <EditText
+                android:id="@+id/password_signup"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="16dp"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textColor="@color/colorAccentNew"
+                android:textColorHint="@color/tw__composer_deep_gray" />
+        </android.support.design.widget.TextInputLayout>
+
 
         <Button
-            android:id="@+id/login_account"
-            android:layout_width="wrap_content"
+            android:id="@+id/signup_account"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_margin="13dp"
+            android:background="@color/colorAccentNew"
+            android:text="@string/login_account"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:background="@drawable/login_border"
-            android:gravity="center_horizontal|center_vertical"
-            android:padding="2dp"
-            android:text="@string/sign_up_account"
-            android:textColor="@color/colorPrimary" />
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:text="@string/not_have_an_account"
+                android:textColor="@color/tw__composer_deep_gray"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/login_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/login_border"
+                android:gravity="center_horizontal|center_vertical"
+                android:padding="2dp"
+                android:text="@string/sign_up_account"
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/signUp_progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+</FrameLayout>

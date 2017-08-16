@@ -1,7 +1,6 @@
 package app.com.shalan.spacego.Activities;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -48,6 +47,9 @@ import app.com.shalan.spacego.Models.Space;
 import app.com.shalan.spacego.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static app.com.shalan.spacego.Handler.Utils.askPermissionsForLocatoin;
+import static app.com.shalan.spacego.Handler.Utils.askPermissionsForStorage;
 
 public class NewSpace extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
@@ -133,7 +135,7 @@ public class NewSpace extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 if (AskForPermissions()) {
-                    askPermissions();
+                    askPermissionsForStorage(NewSpace.this);
                 }
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
@@ -247,15 +249,7 @@ public class NewSpace extends AppCompatActivity implements
         return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
-    protected void askPermissions() {
-        String[] permissions = {
-                "android.permission.READ_EXTERNAL_STORAGE",
-                "android.permission.WRITE_EXTERNAL_STORAGE"
-        };
-        int requestCode = 200;
-        requestPermissions(permissions, requestCode);
-    }
+
 
     // Method to set a list of features of space
     public void isFeatureSelected(List<String> FeatureList) {
@@ -332,13 +326,7 @@ public class NewSpace extends AppCompatActivity implements
     public void onConnected(@Nullable Bundle bundle) {
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            askPermissionsForLocatoin(NewSpace.this);
             return;
         }
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);

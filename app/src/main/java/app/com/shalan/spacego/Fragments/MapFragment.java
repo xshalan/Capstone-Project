@@ -20,6 +20,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import app.com.shalan.spacego.R;
 
+import static app.com.shalan.spacego.Handler.Utils.askPermissionsForLocatoin;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -29,8 +31,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     MapView mMapView;
     private GoogleMap googleMap;
 
-    private double latitude ;
-    private double longitude ;
+    private double latitude;
+    private double longitude;
     private String spaceName;
 
     public MapFragment() {
@@ -77,39 +79,37 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onDestroy();
         mMapView.onDestroy();
     }
-    public static MapFragment newInstance(String name, double latitude , double longitude){
-        MapFragment fragment = new MapFragment() ;
-        fragment.init(name,latitude,longitude);
-        return fragment ;
+
+    public static MapFragment newInstance(String name, double latitude, double longitude) {
+        MapFragment fragment = new MapFragment();
+        fragment.init(name, latitude, longitude);
+        return fragment;
     }
-    private void init(String name, double latitude , double longitude){
-        this.spaceName = name ;
-        this.latitude = latitude ;
-        this.longitude = longitude ;
+
+    private void init(String name, double latitude, double longitude) {
+        this.spaceName = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        if (ActivityCompat.checkSelfPermission(getContext()
+                , Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getContext()
+                , Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            askPermissionsForLocatoin(getActivity());
             return;
         }
-
         googleMap.setMyLocationEnabled(true);
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         googleMap.getUiSettings().setZoomGesturesEnabled(true);
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         // Add a marker in Sydney and move the camera
-        LatLng spaceLocation = new LatLng(latitude,longitude);
+        LatLng spaceLocation = new LatLng(latitude, longitude);
         googleMap.addMarker(new MarkerOptions().position(spaceLocation).title(spaceName));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(spaceLocation,15));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(spaceLocation, 15));
     }
 }

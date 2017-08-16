@@ -1,11 +1,14 @@
 package app.com.shalan.spacego.Activities;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -64,6 +67,9 @@ public class MainActivity extends AppCompatActivity
 
     // UI Components Variables
     TextView profileUsername;
+
+    final private int LOCATION_PERMISSION_REQUEST_CODE = 200;
+
 
 
     @Override
@@ -224,6 +230,8 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -241,8 +249,20 @@ public class MainActivity extends AppCompatActivity
             profileUsername.setVisibility(View.GONE);
 
         } else if (id == R.id.nav_nearby) {
-            Intent intent = new Intent(MainActivity.this, NearbyActivity.class);
-            startActivity(intent);
+            if (ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                String[] permissions = {
+                        "android.permission.ACCESS_FINE_LOCATION",
+                        "android.permission.ACCESS_COARSE_LOCATION"
+                };
+                ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_REQUEST_CODE);
+            }else {
+                Intent intent = new Intent(MainActivity.this, NearbyActivity.class);
+                startActivity(intent);
+            }
+
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -255,7 +275,16 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case LOCATION_PERMISSION_REQUEST_CODE :{
+                Intent intent = new Intent(MainActivity.this, NearbyActivity.class);
+                startActivity(intent);
+            }
+        }
+    }
     @Override
     public void onStart() {
         super.onStart();
