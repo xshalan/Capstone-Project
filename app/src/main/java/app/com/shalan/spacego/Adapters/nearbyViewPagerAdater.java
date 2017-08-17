@@ -2,6 +2,7 @@ package app.com.shalan.spacego.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * Created by noura on 12/08/2017.
  */
 
-public class nearbyViewPagerAdater extends viewPagerAdapter {
+public class nearbyViewPagerAdater extends FragmentStatePagerAdapter {
     private List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
     public nearbyViewPagerAdater(FragmentManager fm) {

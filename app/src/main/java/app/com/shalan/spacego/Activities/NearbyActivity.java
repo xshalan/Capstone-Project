@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,8 +38,7 @@ public class NearbyActivity extends AppCompatActivity implements LocationListene
 
     private String TAG = NearbyActivity.class.getSimpleName();
 
-
-    private static FirebaseDatabase spaceDatabase;
+    private FirebaseDatabase spaceDatabase;
     private DatabaseReference spaceDatabaseRef;
 
     public List<Space> nearbySpaces;
@@ -48,15 +46,14 @@ public class NearbyActivity extends AppCompatActivity implements LocationListene
     public List<String[]> spacesName;
     public List<Double> spacesDistance;
 
-
     public static double currentLatitude = 0.0;
     public static double currentLongitude = 0.0;
     Double distanceTwoPoints;
+
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     nearbyViewPagerAdater adapter;
     private List<Fragment> mFragmentList = new ArrayList<>();
-    private FusedLocationProviderApi mFusedLocationClient;
 
     LocationManager locationManager;
     Location mlastLocation;
@@ -66,13 +63,13 @@ public class NearbyActivity extends AppCompatActivity implements LocationListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby);
         TextView toolbarTitle = (TextView) findViewById(R.id.nearby_toolbarTitle);
+        ImageView connectionWhoops = (ImageView) findViewById(R.id.connection_whoops);
+
         Typeface typeface = Typeface.createFromAsset(getAssets(), "Fonts/Pacifico-Regular.ttf");
         toolbarTitle.setTypeface(typeface);
-        Log.v("onCreate", Double.toString(currentLatitude) + "  " + Double.toString(currentLongitude));
 
         mViewPager = (ViewPager) findViewById(R.id.nearby_viewPager);
         mTabLayout = (TabLayout) findViewById(R.id.nearby_tabLayour);
-        ImageView connectionWhoops = (ImageView) findViewById(R.id.connection_whoops);
 
         if (!Utils.isConnected(getApplicationContext())) {
             connectionWhoops.setVisibility(View.VISIBLE);
@@ -97,9 +94,6 @@ public class NearbyActivity extends AppCompatActivity implements LocationListene
 
         }
     }
-
-
-
 
     private void getAllSpaceLocation() {
         spaceDatabase = FirebaseDatabase.getInstance();

@@ -2,7 +2,7 @@ package app.com.shalan.spacego.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +11,12 @@ import java.util.List;
  * Created by noura on 31/07/2017.
  */
 
-public class viewPagerAdapter extends FragmentPagerAdapter{
+public class viewPagerAdapter extends FragmentStatePagerAdapter{
     private  List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
+
+
+
     public viewPagerAdapter(FragmentManager fm) {
         super(fm);
 

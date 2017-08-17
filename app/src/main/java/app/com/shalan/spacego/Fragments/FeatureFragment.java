@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import app.com.shalan.spacego.R;
@@ -16,7 +17,8 @@ import butterknife.ButterKnife;
 
 
 public class FeatureFragment extends Fragment {
-    private List<String> featureList = null;
+
+    private List<String> featureList = new ArrayList<>();
 
     @BindView(R.id.image_24hour)
     ImageView feature24hourImage;
@@ -41,6 +43,8 @@ public class FeatureFragment extends Fragment {
     @BindView(R.id.image_wifi)
     ImageView featureWifiImage;
 
+    private String FEATURE_LIST_KEY = "featureList" ;
+
     public FeatureFragment() {
         // Required empty public constructor
     }
@@ -52,7 +56,14 @@ public class FeatureFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_feature, container, false);
         ButterKnife.bind(this, view);
-        if (featureList != null) {
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (featureList != null ) {
 
             for (String i : featureList) {
                 System.out.println("list: " + i);
@@ -80,10 +91,8 @@ public class FeatureFragment extends Fragment {
                     featurePublicTransImage.setImageResource(R.drawable.a_publictransport);
                 } else {
                 }
-
             }
         }
-        return view;
     }
 
     public static FeatureFragment newInstance(List<String> featureList) {
@@ -94,5 +103,18 @@ public class FeatureFragment extends Fragment {
 
     private void init(List<String> featureList) {
         this.featureList = featureList;
+    }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            featureList = savedInstanceState.getStringArrayList(FEATURE_LIST_KEY);
+
+        }
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putStringArrayList(FEATURE_LIST_KEY,new ArrayList<String>(featureList));
     }
 }

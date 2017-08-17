@@ -46,7 +46,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private String TAG = MainActivity.class.getSimpleName();
-    private Context mContext ;
+    private Context mContext;
     @BindView(R.id.spaces_recyclerView)
     RecyclerView spaceRecyclerView;
     @BindView(R.id.fab)
@@ -71,11 +71,10 @@ public class MainActivity extends AppCompatActivity
     final private int LOCATION_PERMISSION_REQUEST_CODE = 200;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getApplicationContext() ;
+        mContext = getApplicationContext();
         setContentView(R.layout.activity_main);
         //Bind ButterKnife library to UI
         ButterKnife.bind(this);
@@ -164,37 +163,24 @@ public class MainActivity extends AppCompatActivity
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         spaceRecyclerView.setLayoutManager(layoutManager);
-        recyclerAdapter = new FirebaseRecyclerAdapter<Space, spaceItemViewHolder>(
-                Space.class,
-                R.layout.item_card_layout,
-                spaceItemViewHolder.class,
-                spaceDatabaseRef.orderByChild("rating").limitToFirst(10) ) {
+        spaceRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            protected void onDataChanged() {
-                recyclerAdapter.notifyDataSetChanged();
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == recyclerView.SCROLL_STATE_IDLE) {
+                    fab.show();
+                }
+                super.onScrollStateChanged(recyclerView, newState);
             }
 
             @Override
-            protected void populateViewHolder(spaceItemViewHolder viewHolder, final Space model, int position) {
-                viewHolder.spaceName.setText(model.getName());  // Space name
-                viewHolder.spaceRate.setText(Double.toString(model.getRating()));          // Space rate
-                Glide.with(mContext).load(model.getImageUrl()).into(viewHolder.spaceImage); //space Img
-                // Hanfle when space onClicked
-                viewHolder.setOnItemClickListener(new onSpaceClickListener() {
-                    @Override
-                    public void onSpaceClick(View view, int position) {
-                        DatabaseReference mDatabaseReference = getRef(position);
-                        Log.v(TAG, Integer.toString(position) + model.getName());
-                        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-                        intent.putExtra("spaceModel", model);
-                        intent.putExtra("spaceID", mDatabaseReference.getKey());
-                        startActivity(intent);
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0 || dy < 0 && fab.isShown()) {
+                    fab.hide();
+                }
 
-                    }
-                });
             }
-        };
-        spaceRecyclerView.setAdapter(recyclerAdapter);
+        });
 
     }
 
@@ -231,7 +217,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -258,7 +243,7 @@ public class MainActivity extends AppCompatActivity
                         "android.permission.ACCESS_COARSE_LOCATION"
                 };
                 ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_REQUEST_CODE);
-            }else {
+            } else {
                 Intent intent = new Intent(MainActivity.this, NearbyActivity.class);
                 startActivity(intent);
             }
@@ -275,24 +260,56 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case LOCATION_PERMISSION_REQUEST_CODE :{
+        switch (requestCode) {
+            case LOCATION_PERMISSION_REQUEST_CODE: {
                 Intent intent = new Intent(MainActivity.this, NearbyActivity.class);
                 startActivity(intent);
             }
         }
     }
+
     @Override
     public void onStart() {
         super.onStart();
+        recyclerAdapter = new FirebaseRecyclerAdapter<Space, spaceItemViewHolder>(
+                Space.class,
+                R.layout.item_card_layout,
+                spaceItemViewHolder.class,
+                spaceDatabaseRef.orderByChild("rating").limitToFirst(10)) {
+            @Override
+            protected void onDataChanged() {
+                recyclerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            protected void populateViewHolder(spaceItemViewHolder viewHolder, final Space model, int position) {
+                viewHolder.spaceName.setText(model.getName());  // Space name
+                viewHolder.spaceRate.setText(Double.toString(model.getRating()));          // Space rate
+                Glide.with(mContext).load(model.getImageUrl()).into(viewHolder.spaceImage); //space Img
+                // Hanfle when space onClicked
+                viewHolder.setOnItemClickListener(new onSpaceClickListener() {
+                    @Override
+                    public void onSpaceClick(View view, int position) {
+                        DatabaseReference mDatabaseReference = getRef(position);
+                        Log.v(TAG, Integer.toString(position) + model.getName());
+                        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+                        intent.putExtra("spaceModel", model);
+                        intent.putExtra("spaceID", mDatabaseReference.getKey());
+                        startActivity(intent);
+
+                    }
+                });
+            }
+        };
+        spaceRecyclerView.setAdapter(recyclerAdapter);
+
         if (mFirebaseAuth != null) {
             mFirebaseAuth.addAuthStateListener(mAuthListener);
         }
-
-
     }
 
     @Override
@@ -302,4 +319,5 @@ public class MainActivity extends AppCompatActivity
             mFirebaseAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
 }

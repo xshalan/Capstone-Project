@@ -57,6 +57,9 @@ public class AboutFragment extends Fragment {
 
     protected FirebaseRecyclerAdapter<Review, reviewViewHolder> mRecyclerAdapter;
 
+    private String SPACE_MODEL_KEY = "spaceModel";
+    private String SPACE_ID_KEY = "spaceID";
+
     public AboutFragment() {
         // Required empty public constructor
     }
@@ -71,15 +74,7 @@ public class AboutFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Reviews").child(spaceID);
 
-        if ((spaceModel != null)) {
-
-            aboutSpaceTextview.setText(spaceModel.getDescription());
-            spaceAddress.setText(spaceModel.getAddress());
-            spacePhone.setText("0" + spaceModel.getPhone());
-            spaceWebsite.setText(spaceModel.getWebsite());
-        }
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mReviewsRecyclerView.setLayoutManager(layoutManager);
@@ -112,10 +107,34 @@ public class AboutFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            spaceID = savedInstanceState.getString(SPACE_ID_KEY);
+            spaceModel = savedInstanceState.getParcelable(SPACE_MODEL_KEY);
+        }
+    }
+
+
     public static AboutFragment newInstance(Space spaceModel, String spaceID) {
         AboutFragment fragment = new AboutFragment();
         fragment.init(spaceModel, spaceID);
         return fragment;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        myRef = database.getReference("Reviews").child(spaceID);
+
+        if (spaceModel != null) {
+
+            aboutSpaceTextview.setText(spaceModel.getDescription());
+            spaceAddress.setText(spaceModel.getAddress());
+            spacePhone.setText("0" + spaceModel.getPhone());
+            spaceWebsite.setText(spaceModel.getWebsite());
+        }
     }
 
     @Override
@@ -147,5 +166,10 @@ public class AboutFragment extends Fragment {
         this.spaceID = spaceID;
     }
 
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(SPACE_MODEL_KEY, spaceModel);
+        outState.putString(SPACE_ID_KEY, spaceID);
+    }
 }

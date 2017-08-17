@@ -24,10 +24,8 @@ public class nearbyRecyclerAdapter extends RecyclerView.Adapter<nearbyRecyclerAd
 
     private onSpaceClickListener mOnSpaceClickListener ;
 
-    public nearbyRecyclerAdapter(List<Space> spaceList,List<Double> spaceDistancee,int itemLayout){
-        this.spaceList = spaceList ;
+    public nearbyRecyclerAdapter(int itemLayout){
         this.itemLayout = itemLayout ;
-        this.spaceDistance = spaceDistancee ;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)  {
@@ -72,5 +70,11 @@ public class nearbyRecyclerAdapter extends RecyclerView.Adapter<nearbyRecyclerAd
 
     public void setOnItemClickListener(onSpaceClickListener listener){
         mOnSpaceClickListener = listener;
+    }
+    public void setSpaceDistance(List<Double> spaceDistancee){
+        this.spaceDistance = spaceDistancee ;
+    }
+    public void setSpaceModel(List<Space> spaceList){
+        this.spaceList = spaceList ;
     }
 }

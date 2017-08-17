@@ -26,6 +26,8 @@ import java.util.List;
 import app.com.shalan.spacego.Handler.Utils;
 import app.com.shalan.spacego.R;
 
+import static app.com.shalan.spacego.Handler.Utils.askPermissionsForLocatoin;
+
 
 public class NearbyMapFragment extends Fragment implements OnMapReadyCallback {
     MapView mMapView;
@@ -74,13 +76,7 @@ public class NearbyMapFragment extends Fragment implements OnMapReadyCallback {
         this.googleMap = googleMap;
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            askPermissionsForLocatoin(getActivity());
             return;
         }
         googleMap.setMyLocationEnabled(true);
@@ -92,11 +88,10 @@ public class NearbyMapFragment extends Fragment implements OnMapReadyCallback {
             Double locations[] = spacesLocation.get(i);
             Double lat = locations[0];
             Double lng = locations[1];
-            int zoom = 9 ;
+            int zoom = 9;
             createMarker(lat, lng, spaceName.get(i)[0]);
             LatLng spaceLocation = new LatLng(lat, lng);
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(spaceLocation,zoom));
-
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(spaceLocation, zoom));
         }
     }
 
@@ -116,4 +111,5 @@ public class NearbyMapFragment extends Fragment implements OnMapReadyCallback {
         return googleMap.addMarker(
                 new MarkerOptions().position(spaceLocation).title(title));
     }
+
 }

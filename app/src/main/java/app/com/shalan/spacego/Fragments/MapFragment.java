@@ -4,6 +4,7 @@ package app.com.shalan.spacego.Fragments;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -35,31 +36,40 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private double longitude;
     private String spaceName;
 
+    private String LONGITUDE_KEY = "longitude";
+    private String LATITUDE_KEY = "latitude";
+    private String SPACE_NAME_KEY = "name" ;
+
     public MapFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_map, container, false);
+
         mMapView = (MapView) view.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
-
         mMapView.onResume();// needed to get the map to display immediately
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         mMapView.getMapAsync(this);
-        // latitude and longitude
-        double latitude = 17.385044;
-        double longitude = 78.486671;
+
         return view;
+    }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState!=null){
+            latitude = savedInstanceState.getDouble(LATITUDE_KEY);
+            longitude = savedInstanceState.getDouble(LONGITUDE_KEY);
+            spaceName = savedInstanceState.getString(SPACE_NAME_KEY);
+        }
     }
 
     @Override
@@ -111,5 +121,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         LatLng spaceLocation = new LatLng(latitude, longitude);
         googleMap.addMarker(new MarkerOptions().position(spaceLocation).title(spaceName));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(spaceLocation, 15));
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putDouble(LONGITUDE_KEY,longitude);
+        outState.putDouble(LATITUDE_KEY,latitude);
+        outState.putString(SPACE_NAME_KEY,spaceName);
     }
 }
