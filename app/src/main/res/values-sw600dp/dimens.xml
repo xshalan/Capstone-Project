@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <!-- Default screen margins, for sw600dp. -->
+    <dimen name="activity_horizontal_margin">100dp</dimen>
+
+</resources>

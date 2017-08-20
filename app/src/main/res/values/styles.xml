@@ -2,38 +2,37 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
-
+    <!-- No Toolbar theme. -->
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!-- Add new space form theme. -->
     <style name="AppTheme.NewSpace" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimaryNew</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkNew</item>
         <item name="colorAccent">@color/colorAccentNew</item>
-
     </style>
 
+    <!-- Fullscreen theme. for login and sign up Activities -->
     <style name="AppTheme.Fullscreen" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
-
     </style>
 
+    <!-- Star rating bat theme. -->
     <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">@color/gray</item>
+        <item name="colorControlNormal">@color/tw__composer_deep_gray</item>
         <item name="colorControlActivated">@color/Golden</item>
     </style>
 

@@ -38,7 +38,7 @@ public class nearbyRecyclerAdapter extends RecyclerView.Adapter<nearbyRecyclerAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         if(spaceList.size()>0){
             holder.spaceName.setText(spaceList.get(position).getName());
-            holder.spaceDistance.setText(Double.toString(Math.floor(spaceDistance.get(position)) )+"km");
+            holder.spaceDistance.setText(Math.round(spaceDistance.get(position)*10.0)/10.0 + "km");
             holder.spaceAddress.setText(spaceList.get(position).getAddress());
         }
     }

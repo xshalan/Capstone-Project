@@ -13,7 +13,7 @@
 
     <application
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -63,11 +63,22 @@
         <activity
             android:name=".Activities.NearbyActivity"
             android:label="Nearby Spaces"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.writeReviewActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".Activities.writeReviewActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <receiver android:name=".NearbySpacesWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
 
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/nearby_spaces_widget_info" />
+        </receiver>
+        <service android:name=".widgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

@@ -13,16 +13,24 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="false"
         android:orientation="vertical">
-        <TextView
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/nearby_toolbarTitle"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:typeface="normal"
+            android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
-            android:text="Nearby Spaces"/>
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nearby_toolbarTitle"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:typeface="normal"
+                android:background="@color/colorPrimary"
+                android:text="Nearby Spaces"/>
+        </android.support.v7.widget.Toolbar>
         <android.support.design.widget.TabLayout
             android:id="@+id/nearby_tabLayour"
             android:layout_width="match_parent"
@@ -43,6 +51,27 @@
         android:layout_height="match_parent"
         android:src="@drawable/whoops_connection"
         android:visibility="gone"/>
+    <LinearLayout
+        android:id="@+id/noSpaces_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_bg"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:src="@drawable/noSpaces"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/tw__composer_deep_gray"
+            android:text="No Spaces around.!"/>
+    </LinearLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/nearby_viewPager"
         android:layout_width="match_parent"

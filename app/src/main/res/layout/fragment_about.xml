@@ -1,4 +1,4 @@
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -218,6 +218,7 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
             android:id="@+id/reviewRecyclerView">
 
         </android.support.v7.widget.RecyclerView>
@@ -225,14 +226,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/write_reviewButton"
                 android:layout_width="match_parent"
+                android:layout_gravity="center|bottom"
                 android:layout_height="56dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
                 android:text="@string/write_your_review"
                 android:textColor="@color/white"
                 android:textSize="16dp"
@@ -243,4 +245,4 @@
 </android.support.v4.widget.NestedScrollView>
 
 
-</android.support.v7.widget.CardView>
+</android.support.design.widget.CoordinatorLayout>

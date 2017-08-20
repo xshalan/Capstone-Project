@@ -26,15 +26,6 @@
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/details_activity_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="parallax"
-                app:navigationIcon="?attr/homeAsUpIndicator">
-
-            </android.support.v7.widget.Toolbar>
-
             <ImageView
                 android:id="@+id/backdrop_image_cover"
                 android:layout_width="match_parent"
@@ -44,6 +35,15 @@
                 android:src="@drawable/office"
                 app:layout_collapseMode="parallax" />
 
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/details_activity_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="parallax"
+                app:navigationIcon="?attr/homeAsUpIndicator">
+
+            </android.support.v7.widget.Toolbar>
+
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs_Details"
                 android:layout_width="match_parent"
@@ -51,11 +51,11 @@
                 android:layout_gravity="bottom"
                 android:background="@color/colorPrimary"
                 app:tabGravity="fill"
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabIndicatorHeight="2dp"
                 app:tabMaxWidth="0dp"
                 app:tabMode="fixed"
-                app:tabIndicatorHeight="2dp"
-                app:tabSelectedTextColor="@color/colorAccent"
-                app:tabIndicatorColor="@color/colorAccent"/>
+                app:tabSelectedTextColor="@color/colorAccent" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
@@ -72,6 +72,7 @@
             android:layout_height="match_parent"
             android:minHeight="600dp"
             android:orientation="vertical">
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewPager_Details"
                 android:layout_width="match_parent"

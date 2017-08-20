@@ -13,7 +13,7 @@
     <string name="space_name_hint">Just enter the space name</string>
     <string name="space_desc_hint">A short description about your space</string>
     <string name="space_address_hint">1234 Street, Cairo, Eldokki</string>
-    <string name="space_phone_hint">+2 0112 911 7947</string>
+    <string name="space_phone_hint">0112 911 7947 "no spaces only numbers"</string>
     <string name="space_state_hint">ex: Cairo</string>
     <string name="space_website_hint">www.example.com</string>
     <string name="space_map_lat_hint">30.0680582</string>
@@ -102,5 +102,9 @@
     <string name="time_ago_year">a year</string>
     <string name="time_ago_years">%d years</string>
     <string name="how_you_rate">How would you rate this space?</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="AddToWidget">Add to widget</string>
+    <string name="addToWidgetToast_messege">Add successfully to widget!</string>
 
 </resources>

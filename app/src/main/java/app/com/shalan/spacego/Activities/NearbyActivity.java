@@ -2,6 +2,7 @@ package app.com.shalan.spacego.Activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.location.Location;
@@ -13,16 +14,22 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,14 +44,15 @@ import app.com.shalan.spacego.R;
 public class NearbyActivity extends AppCompatActivity implements LocationListener{
 
     private String TAG = NearbyActivity.class.getSimpleName();
+    LinearLayout noSpacesLayout ;
 
     private FirebaseDatabase spaceDatabase;
     private DatabaseReference spaceDatabaseRef;
 
-    public List<Space> nearbySpaces;
-    public List<Double[]> spacesLocation;
-    public List<String[]> spacesName;
-    public List<Double> spacesDistance;
+    public static List<Space> nearbySpaces;
+    public static List<Double[]> spacesLocation;
+    public static List<String[]> spacesName;
+    public static List<Double> spacesDistance;
 
     public static double currentLatitude = 0.0;
     public static double currentLongitude = 0.0;
@@ -58,12 +66,20 @@ public class NearbyActivity extends AppCompatActivity implements LocationListene
     LocationManager locationManager;
     Location mlastLocation;
 
+    SharedPreferences mSharedPreferences ;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String SPACE_LIST_KEY = "spacesList" ;
+    public static final String DISTANCE_LIST_KEY = "distanceList" ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby);
         TextView toolbarTitle = (TextView) findViewById(R.id.nearby_toolbarTitle);
         ImageView connectionWhoops = (ImageView) findViewById(R.id.connection_whoops);
+        noSpacesLayout = (LinearLayout) findViewById(R.id.noSpaces_layout);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "Fonts/Pacifico-Regular.ttf");
         toolbarTitle.setTypeface(typeface);
@@ -123,10 +139,14 @@ public class NearbyActivity extends AppCompatActivity implements LocationListene
                         spacesDistance.add(distanceTwoPoints);
                     }
                 }
-                mFragmentList.add(NearbyListFragment.newInstance(nearbySpaces, spacesDistance));
-                mFragmentList.add(NearbyMapFragment.newInstance(spacesLocation, spacesName));
-                adapter.setmFragmentList(mFragmentList);
-                mViewPager.setAdapter(adapter);
+                if(spacesName.size()!= 0) {
+                    mFragmentList.add(NearbyListFragment.newInstance(nearbySpaces, spacesDistance));
+                    mFragmentList.add(NearbyMapFragment.newInstance(spacesLocation, spacesName));
+                    adapter.setmFragmentList(mFragmentList);
+                    mViewPager.setAdapter(adapter);
+                }else{
+                    noSpacesLayout.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -134,6 +154,26 @@ public class NearbyActivity extends AppCompatActivity implements LocationListene
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.nearby_activity_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_add_to_widget:{
+                mSharedPreferences = getSharedPreferences(MyPREFERENCES,MODE_PRIVATE);
+                putList(DISTANCE_LIST_KEY,spacesDistance,mSharedPreferences.edit());
+                putList(SPACE_LIST_KEY,nearbySpaces,mSharedPreferences.edit());
+                Toast.makeText(getApplicationContext(), R.string.addToWidgetToast_messege,Toast.LENGTH_SHORT).show();
+            }
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     public Double getDistance(Double lat, Double lng, Double myLat, Double myLng) {
@@ -208,7 +248,15 @@ public class NearbyActivity extends AppCompatActivity implements LocationListene
     protected void onResume() {
         super.onResume();
         Log.v("onResume", String.valueOf(currentLatitude));
+
         getAllSpaceLocation();
 
+    }
+
+    public <T> void putList(String key, List<T> list,SharedPreferences.Editor editor) {
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        editor.putString(key, json);
+        editor.commit();
     }
 }
