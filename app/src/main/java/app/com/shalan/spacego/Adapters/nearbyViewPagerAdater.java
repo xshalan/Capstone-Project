@@ -13,20 +13,22 @@ import java.util.List;
 
 public class nearbyViewPagerAdater extends FragmentStatePagerAdapter {
     private List<Fragment> mFragmentList = new ArrayList<>();
-    private final List<String> mFragmentTitleList = new ArrayList<>();
+    private List<String> mFragmentTitleList = new ArrayList<>();
+
     public nearbyViewPagerAdater(FragmentManager fm) {
         super(fm);
-
-        mFragmentTitleList.add("List") ;
+        mFragmentTitleList.clear();
+        mFragmentTitleList.add("List");
         mFragmentTitleList.add("Map");
     }
+
     @Override
     public CharSequence getPageTitle(int position) {
         return mFragmentTitleList.get(position);
     }
+
     @Override
     public Fragment getItem(int position) {
-
         return mFragmentList.get(position);
     }
 
@@ -35,8 +37,8 @@ public class nearbyViewPagerAdater extends FragmentStatePagerAdapter {
         return mFragmentList.size();
     }
 
-    public void setmFragmentList(List<Fragment> fragmentList){
-        mFragmentList = fragmentList ;
+    public void setmFragmentList(List<Fragment> fragmentList) {
+        mFragmentList = fragmentList;
     }
 
 

@@ -49,10 +49,10 @@ public class NearbyActivity extends AppCompatActivity implements LocationListene
     private FirebaseDatabase spaceDatabase;
     private DatabaseReference spaceDatabaseRef;
 
-    public static List<Space> nearbySpaces;
-    public static List<Double[]> spacesLocation;
-    public static List<String[]> spacesName;
-    public static List<Double> spacesDistance;
+    public  List<Space> nearbySpaces;
+    public  List<Double[]> spacesLocation;
+    public  List<String[]> spacesName;
+    public  List<Double> spacesDistance;
 
     public static double currentLatitude = 0.0;
     public static double currentLongitude = 0.0;
@@ -98,7 +98,6 @@ public class NearbyActivity extends AppCompatActivity implements LocationListene
                 Log.v("checkSelfPermission", "Great!");
 
             }
-            adapter = new nearbyViewPagerAdater(getSupportFragmentManager());
 
             mViewPager.setPageTransformer(true, new ViewPager.PageTransformer() {
                 @Override
@@ -140,6 +139,8 @@ public class NearbyActivity extends AppCompatActivity implements LocationListene
                     }
                 }
                 if(spacesName.size()!= 0) {
+                    adapter = new nearbyViewPagerAdater(getSupportFragmentManager());
+                    mFragmentList.clear();
                     mFragmentList.add(NearbyListFragment.newInstance(nearbySpaces, spacesDistance));
                     mFragmentList.add(NearbyMapFragment.newInstance(spacesLocation, spacesName));
                     adapter.setmFragmentList(mFragmentList);
