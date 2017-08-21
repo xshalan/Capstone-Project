@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.com.shalan.spacego.Adapters.viewPagerAdapter;
+import app.com.shalan.spacego.Adapters.ViewPagerAdapter;
 import app.com.shalan.spacego.Fragments.AboutFragment;
 import app.com.shalan.spacego.Fragments.FeatureFragment;
 import app.com.shalan.spacego.Fragments.MapFragment;
@@ -68,7 +68,7 @@ public class DetailsActivity extends AppCompatActivity {
         mFragmentList.add(FeatureFragment.newInstance(spaceModel.getFeatures()));
         mFragmentList.add(MapFragment.newInstance(spaceModel.getName(), spaceModel.getLatitude(), spaceModel.getLongitude()));
 
-        viewPagerAdapter adapter = new viewPagerAdapter(getSupportFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.setmFragmentList(mFragmentList);
         mViewPager.setAdapter(adapter);
         mViewPager.setPageTransformer(true, new ViewPager.PageTransformer() {

@@ -13,7 +13,7 @@ public class NearbySpacesWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-        Intent intent = new Intent(context,widgetService.class) ;
+        Intent intent = new Intent(context,WidgetService.class) ;
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.nearby_spaces_widget);
 

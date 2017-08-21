@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.com.shalan.spacego.Adapters.nearbyRecyclerAdapter;
-import app.com.shalan.spacego.Handler.onSpaceClickListener;
+import app.com.shalan.spacego.Adapters.NearbyRecyclerAdapter;
+import app.com.shalan.spacego.Handler.OnSpaceClickListener;
 import app.com.shalan.spacego.Models.Space;
 import app.com.shalan.spacego.R;
 
@@ -27,7 +27,7 @@ public class NearbyListFragment extends Fragment {
     List<Space> spaceModel = new ArrayList<>();
     List<Double> spacesDistance = new ArrayList<>();
 
-    private nearbyRecyclerAdapter mNearbyAdapter;
+    private NearbyRecyclerAdapter mNearbyAdapter;
     private RecyclerView nearbyRecyclerView;
 
     private String NEARBY_LIST_KEY = "spaceList";
@@ -55,8 +55,8 @@ public class NearbyListFragment extends Fragment {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         nearbyRecyclerView.setLayoutManager(layoutManager);
-        mNearbyAdapter = new nearbyRecyclerAdapter(R.layout.item_nearby_space_layout);
-        mNearbyAdapter.setOnItemClickListener(new onSpaceClickListener() {
+        mNearbyAdapter = new NearbyRecyclerAdapter(R.layout.item_nearby_space_layout);
+        mNearbyAdapter.setOnItemClickListener(new OnSpaceClickListener() {
             @Override
             public void onSpaceClick(View view, int position) {
                 Log.v(TAG, String.valueOf(position));

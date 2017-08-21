@@ -34,7 +34,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.com.shalan.spacego.Adapters.nearbyViewPagerAdater;
+import app.com.shalan.spacego.Adapters.NearbyViewPagerAdapter;
 import app.com.shalan.spacego.Fragments.NearbyListFragment;
 import app.com.shalan.spacego.Fragments.NearbyMapFragment;
 import app.com.shalan.spacego.Handler.Utils;
@@ -60,7 +60,7 @@ public class NearbyActivity extends AppCompatActivity implements LocationListene
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-    nearbyViewPagerAdater adapter;
+    NearbyViewPagerAdapter adapter;
     private List<Fragment> mFragmentList = new ArrayList<>();
 
     LocationManager locationManager;
@@ -139,7 +139,7 @@ public class NearbyActivity extends AppCompatActivity implements LocationListene
                     }
                 }
                 if(spacesName.size()!= 0) {
-                    adapter = new nearbyViewPagerAdater(getSupportFragmentManager());
+                    adapter = new NearbyViewPagerAdapter(getSupportFragmentManager());
                     mFragmentList.clear();
                     mFragmentList.add(NearbyListFragment.newInstance(nearbySpaces, spacesDistance));
                     mFragmentList.add(NearbyMapFragment.newInstance(spacesLocation, spacesName));

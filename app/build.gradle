@@ -13,8 +13,17 @@ android {
 
         multiDexEnabled true
     }
+    signingConfigs {
+        release {
+            storeFile file("release.jks")
+            storePassword "0123317585"
+            keyAlias "SpaceGOkey"
+            keyPassword "0123317585"
+        }
+    }
     buildTypes {
         release {
+            signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

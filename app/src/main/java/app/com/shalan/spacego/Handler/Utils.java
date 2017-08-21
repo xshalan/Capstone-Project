@@ -39,7 +39,5 @@ public class Utils {
         ActivityCompat.requestPermissions(activity, permissions, requestCode);
     }
 
-    public static boolean AskForPermissions() {
-        return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
-    }
+
 }

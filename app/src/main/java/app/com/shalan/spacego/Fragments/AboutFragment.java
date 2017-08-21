@@ -20,10 +20,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import app.com.shalan.spacego.Activities.loginActivity;
-import app.com.shalan.spacego.Activities.writeReviewActivity;
-import app.com.shalan.spacego.Adapters.reviewViewHolder;
-import app.com.shalan.spacego.Handler.getCoolTime;
+import app.com.shalan.spacego.Activities.LoginActivity;
+import app.com.shalan.spacego.Activities.WriteReviewActivity;
+import app.com.shalan.spacego.Adapters.ReviewViewHolder;
+import app.com.shalan.spacego.Handler.GetCoolTime;
 import app.com.shalan.spacego.Models.Review;
 import app.com.shalan.spacego.Models.Space;
 import app.com.shalan.spacego.R;
@@ -55,7 +55,7 @@ public class AboutFragment extends Fragment {
     public static String spaceID;
     private AlertDialog.Builder progressDialog;
 
-    protected FirebaseRecyclerAdapter<Review, reviewViewHolder> mRecyclerAdapter;
+    protected FirebaseRecyclerAdapter<Review, ReviewViewHolder> mRecyclerAdapter;
 
     private String SPACE_MODEL_KEY = "spaceModel";
     private String SPACE_ID_KEY = "spaceID";
@@ -84,7 +84,7 @@ public class AboutFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (mAuth.getCurrentUser() != null) {
-                    Intent intent = new Intent(getActivity(), writeReviewActivity.class);
+                    Intent intent = new Intent(getActivity(), WriteReviewActivity.class);
                     intent.putExtra("spaceId", spaceID);
                     Log.v(TAG, spaceID);
                     startActivity(intent);
@@ -95,7 +95,7 @@ public class AboutFragment extends Fragment {
                     progressDialog.setPositiveButton("Login", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Intent intent = new Intent(getActivity(), loginActivity.class);
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
                             startActivity(intent);
                         }
                     }).show();
@@ -140,15 +140,15 @@ public class AboutFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mRecyclerAdapter = new FirebaseRecyclerAdapter<Review, reviewViewHolder>(
+        mRecyclerAdapter = new FirebaseRecyclerAdapter<Review, ReviewViewHolder>(
                 Review.class,
                 R.layout.item_comment_card_layout,
-                reviewViewHolder.class,
+                ReviewViewHolder.class,
                 myRef) {
             @Override
-            protected void populateViewHolder(reviewViewHolder viewHolder, Review model, int position) {
+            protected void populateViewHolder(ReviewViewHolder viewHolder, Review model, int position) {
                 if (model.getRating() != 0 && model.getReview() != null && model.getDate() != 0) {
-                    getCoolTime coolTime = new getCoolTime(getContext());
+                    GetCoolTime coolTime = new GetCoolTime(getContext());
                     viewHolder.username.setText(model.getUsername());
                     viewHolder.review.setText(model.getReview());
                     viewHolder.ratingBar.setRating(model.getRating());

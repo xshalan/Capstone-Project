@@ -33,9 +33,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import app.com.shalan.spacego.Adapters.spaceItemViewHolder;
+import app.com.shalan.spacego.Adapters.SpaceItemViewHolder;
 import app.com.shalan.spacego.Handler.Utils;
-import app.com.shalan.spacego.Handler.onSpaceClickListener;
+import app.com.shalan.spacego.Handler.OnSpaceClickListener;
 import app.com.shalan.spacego.Models.Space;
 import app.com.shalan.spacego.Models.User;
 import app.com.shalan.spacego.R;
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity
     private DatabaseReference spaceDatabaseRef;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseRecyclerAdapter<Space, spaceItemViewHolder> recyclerAdapter;
+    private FirebaseRecyclerAdapter<Space, SpaceItemViewHolder> recyclerAdapter;
 
     // UI Components Variables
     TextView profileUsername;
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.sign_in) {
-            Intent intent = new Intent(MainActivity.this, loginActivity.class);
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         } else if (id == R.id.sign_out) {
             mFirebaseAuth.signOut();
@@ -254,10 +254,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onStart() {
         super.onStart();
-        recyclerAdapter = new FirebaseRecyclerAdapter<Space, spaceItemViewHolder>(
+        recyclerAdapter = new FirebaseRecyclerAdapter<Space, SpaceItemViewHolder>(
                 Space.class,
                 R.layout.item_card_layout,
-                spaceItemViewHolder.class,
+                SpaceItemViewHolder.class,
                 spaceDatabaseRef.orderByChild("rating").limitToFirst(10)) {
             @Override
             protected void onDataChanged() {
@@ -265,12 +265,12 @@ public class MainActivity extends AppCompatActivity
             }
 
             @Override
-            protected void populateViewHolder(spaceItemViewHolder viewHolder, final Space model, int position) {
+            protected void populateViewHolder(SpaceItemViewHolder viewHolder, final Space model, int position) {
                 viewHolder.spaceName.setText(model.getName());  // Space name
                 viewHolder.spaceRate.setText(Double.toString(model.getRating()));          // Space rate
                 Glide.with(mContext).load(model.getImageUrl()).into(viewHolder.spaceImage); //space Img
                 // Hanfle when space onClicked
-                viewHolder.setOnItemClickListener(new onSpaceClickListener() {
+                viewHolder.setOnItemClickListener(new OnSpaceClickListener() {
                     @Override
                     public void onSpaceClick(View view, int position) {
                         DatabaseReference mDatabaseReference = getRef(position);
