@@ -16,6 +16,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -108,8 +109,10 @@ public class NearbyMapFragment extends Fragment implements OnMapReadyCallback {
 
     private Marker createMarker(double lat, double lng, String title) {
         LatLng spaceLocation = new LatLng(lat, lng);
-        return googleMap.addMarker(
-                new MarkerOptions().position(spaceLocation).title(title));
+        return googleMap.addMarker(new MarkerOptions()
+                        .position(spaceLocation)
+                        .title(title)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
     }
 
 }
