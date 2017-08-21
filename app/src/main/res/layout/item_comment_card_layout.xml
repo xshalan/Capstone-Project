@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="16dp"
@@ -41,8 +41,7 @@
                     android:layout_marginLeft="45dp"
                     android:layout_marginTop="6dp"
                     android:id="@+id/comment_username"
-                    android:text="Mohammed Shalan"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:gravity="center_vertical"/>
 
                 <TextView
@@ -51,9 +50,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/comment_username"
                     android:layout_marginLeft="50dp"
-                    android:textSize="9sp"
-                    android:gravity="center_vertical"
-                    android:text="Mohammed Shalan" />
+                    android:textSize="12sp"
+                    android:gravity="center_vertical"/>
 
 
             </RelativeLayout>

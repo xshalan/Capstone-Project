@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="16dp"
-            android:text="LEAVE A COMMENT"
+            android:text="@string/LeaveComment"
             android:textColor="@color/tw__composer_deep_gray"
             android:textSize="15sp" />
 
@@ -75,8 +75,9 @@
                     android:layout_height="120dp"
                     android:layout_gravity="top|left"
                     android:gravity="top|left"
-                    android:hint="Tell us about this space..."
+                    android:hint="@string/TellAboutThisSpace"
                     android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
                     android:paddingTop="16dp" />
             </LinearLayout>
 
@@ -92,7 +93,7 @@
             android:background="@drawable/submit_bg"
             android:gravity="center"
             android:padding="4dp"
-            android:text="Submit"
+            android:text="@string/submit"
             android:textColor="@color/white" />
     </LinearLayout>
 

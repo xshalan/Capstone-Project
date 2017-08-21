@@ -64,7 +64,6 @@ public class FeatureFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (featureList != null ) {
-
             for (String i : featureList) {
                 System.out.println("list: " + i);
                 if (i.contains("WiFi")) {

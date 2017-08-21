@@ -4,10 +4,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="search">Search</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="space_name">Space Name</string>
     <string name="description">Description</string>
     <string name="space_name_hint">Just enter the space name</string>
@@ -40,7 +36,6 @@
     <string name="about_space">Overview</string>
     <string name="lorem">lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem</string>
     <string name="comments_space">Comments</string>
-    <string name="enter_a_comment">Enter a comment</string>
     <string name="username_lorem">Username</string>
     <string name="free_coffee">Free Coffee</string>
     <string name="fast_wifi">Fast WiFi</string>
@@ -106,5 +101,42 @@
     <string name="add_widget">Add widget</string>
     <string name="AddToWidget">Add to widget</string>
     <string name="addToWidgetToast_messege">Add successfully to widget!</string>
+    <string name="navNearby_spaces">Nearby Spaces</string>
+    <string name="navAccountGroupTitle">Account</string>
+    <string name="nav_sign_out">Sign out</string>
+    <string name="nav_sign_in">Sign in</string>
+    <string name="Activity_nearbySpaces_toolbar">Nearby Spaces</string>
+    <string name="NoSpacesAround">No Spaces around.!</string>
+    <string name="use_my_location">Use My Location</string>
+    <string name="LeaveComment">LEAVE A COMMENT</string>
+    <string name="TellAboutThisSpace">Tell us about this space...</string>
+    <string name="submit">Submit</string>
+    <string name="WidgetSpacesTitle">Nearby spaces</string>
+    <string name="SpaceCover_contentDescription">an Image that shows the space\'s atmosphere</string>
+    <string name="logo_image_ContentDesc">App logo image</string>
+    <string name="whoopsImage_ContentDesc">An image that show up when connection is lost</string>
+    <string name="noSpacesImage_ContentDesc">An image that show up when no spaces around</string>
+    <string name="locationIcon_ContentDesc">Location icon</string>
+    <string name="phoneIcon_ContentDesc">Phone Icon</string>
+    <string name="state_icon_ContentDesc">State Icon</string>
+    <string name="websiteIcon_ContentDesc">website icon</string>
+    <string name="mapIcon_ContentDesc">map icon</string>
+    <string name="applogo_image_ContentDesc">App Logo Image</string>
+    <string name="spacegoLogo_ContentDesc">SpaceGo app logo</string>
+    <string name="information_icon_ContentDesc">information icon</string>
+    <string name="AddressIcon_ContentDesc">address icon</string>
+    <string name="commentIcon_ContentDesc">comment icon</string>
+    <string name="feature_24hour_ContentDesc">The space open 24 hour</string>
+    <string name="feature_coffee_ContentDesc">The space offers free coffee</string>
+    <string name="feature_wifi_ContentDesc">The space hava fast wifi</string>
+    <string name="feature_conference_ContentDesc">The space offer a conference hosting</string>
+    <string name="feature_green_ContentDesc">The space contains green space area</string>
+    <string name="feature_Kitchen_ContentDesc">The space contains a kitchen</string>
+    <string name="feature_membership_ContentDesc">The space offere memberships</string>
+    <string name="feature_printer_ContentDesc">The space offer a free access to printer</string>
+    <string name="feature_parking_ContentDesc">The space have free parking area</string>
+    <string name="feature_offices_ContentDesc">The space offer private offices for the members</string>
+    <string name="feature_public_ContentDesc">You can reach to the space by public transportation</string>
+    <string name="background_ContentDesc">Background</string>
 
 </resources>

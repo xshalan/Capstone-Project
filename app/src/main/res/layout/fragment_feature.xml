@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="app.com.shalan.spacego.Fragments.FeatureFragment">
 
@@ -10,15 +11,14 @@
         android:layout_height="wrap_content"
         android:columnCount="2"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:visibility="gone"
-        android:layout_gravity="center">
+        android:layout_marginLeft="6dp"
+        app:columnWidth="100dp">
 
         <ImageView
             android:layout_width="100dp"
             android:layout_height="70dp"
             android:gravity="center"
+            android:contentDescription="@string/feature_24hour_ContentDesc"
             android:id="@+id/image_24hour"
             android:src="@drawable/u24hour" />
         <ImageView
@@ -26,17 +26,20 @@
             android:layout_height="70dp"
             android:gravity="center"
             android:id="@+id/image_coffee"
+            android:contentDescription="@string/feature_coffee_ContentDesc"
             android:src="@drawable/u_coffeee" />
         <ImageView
             android:layout_width="100dp"
             android:layout_height="70dp"
             android:gravity="center"
+            android:contentDescription="@string/feature_wifi_ContentDesc"
             android:id="@+id/image_wifi"
             android:src="@drawable/u_wifi" />
         <ImageView
             android:layout_width="100dp"
             android:layout_height="70dp"
             android:gravity="center"
+            android:contentDescription="@string/feature_conference_ContentDesc"
             android:id="@+id/image_conference"
             android:src="@drawable/u_conference" />
         <ImageView
@@ -44,30 +47,35 @@
             android:layout_height="70dp"
             android:gravity="center"
             android:id="@+id/image_greenSpace"
+            android:contentDescription="@string/feature_green_ContentDesc"
             android:src="@drawable/u_greenspace" />
         <ImageView
             android:layout_width="100dp"
             android:layout_height="70dp"
             android:gravity="center"
             android:id="@+id/image_kitchen"
+            android:contentDescription="@string/feature_Kitchen_ContentDesc"
             android:src="@drawable/u_kitchen" />
         <ImageView
             android:layout_width="100dp"
             android:layout_height="70dp"
             android:gravity="center"
             android:id="@+id/image_membership"
+            android:contentDescription="@string/feature_membership_ContentDesc"
             android:src="@drawable/u_membership" />
         <ImageView
             android:layout_width="100dp"
             android:layout_height="70dp"
             android:gravity="center"
             android:id="@+id/image_printer"
+            android:contentDescription="@string/feature_printer_ContentDesc"
             android:src="@drawable/u_printer" />
         <ImageView
             android:layout_width="100dp"
             android:layout_height="70dp"
             android:gravity="center"
             android:id="@+id/image_parking"
+            android:contentDescription="@string/feature_parking_ContentDesc"
             android:src="@drawable/u_parking" />
 
         <ImageView
@@ -75,6 +83,7 @@
             android:layout_height="70dp"
             android:gravity="center"
             android:id="@+id/image_privateOffice"
+            android:contentDescription="@string/feature_offices_ContentDesc"
             android:src="@drawable/u_privateoffice" />
 
         <ImageView
@@ -82,13 +91,10 @@
             android:layout_height="70dp"
             android:gravity="center"
             android:id="@+id/image_publicTransp"
+            android:contentDescription="@string/feature_public_ContentDesc"
             android:src="@drawable/u_publictrans" />
 
     </app.com.shalan.spacego.Activities.AutoGridLayout>
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="70dp"
-        android:gravity="center"
-        android:src="@drawable/u_publictrans" />
+
 
 </LinearLayout>

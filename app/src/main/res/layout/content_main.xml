@@ -13,6 +13,7 @@
     <ImageView
         android:id="@+id/connection_whoops"
         android:layout_width="match_parent"
+        android:contentDescription="@string/whoopsImage_ContentDesc"
         android:layout_height="match_parent"
         android:src="@drawable/whoops_connection"
         android:visibility="gone" />

@@ -9,6 +9,7 @@
         android:id="@+id/nearby_whoops"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@string/whoopsImage_ContentDesc"
         android:src="@drawable/whoops_nearby"
         android:visibility="gone" />
 

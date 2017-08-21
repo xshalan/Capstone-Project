@@ -23,6 +23,7 @@
             android:id="@+id/item_space_image"
             android:scaleType="centerCrop"
             android:layout_height="200dp"
+            android:contentDescription="@string/SpaceCover_contentDescription"
             android:src="@color/cardview_dark_background" />
 
         <LinearLayout
@@ -33,13 +34,12 @@
             android:paddingRight="@dimen/activity_horizontal_margin">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/item_space_name"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="Space Name"
                 android:textSize="18sp" />
 
             <TextView
@@ -49,7 +49,6 @@
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/rate_bg"
                 android:gravity="center_vertical|center_horizontal|center"
-                android:text="9.5"
                 android:textColor="@android:color/white" />
 
         </LinearLayout>

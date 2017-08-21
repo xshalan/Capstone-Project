@@ -21,6 +21,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
+                android:contentDescription="@string/spacegoLogo_ContentDesc"
                 android:src="@drawable/space_logo"/>
         </android.support.v7.widget.Toolbar>
 

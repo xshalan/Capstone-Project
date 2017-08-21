@@ -105,6 +105,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/locationIcon_ContentDesc"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/location_icon"
                     android:tint="@color/colorPrimaryDarkNew" />
@@ -132,6 +133,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/phoneIcon_ContentDesc"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/call_icon"
                     android:tint="@color/colorPrimaryDarkNew" />
@@ -160,6 +162,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/state_icon_ContentDesc"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/state_icon"
                     android:tint="@color/colorPrimaryDarkNew" />
@@ -203,6 +206,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/websiteIcon_ContentDesc"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/website_icon"
                     android:tint="@color/colorPrimaryDarkNew" />
@@ -247,6 +251,7 @@
                     android:layout_height="32dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
+                    android:contentDescription="@string/mapIcon_ContentDesc"
                     android:src="@drawable/map_icon"
                     android:tint="@color/colorPrimaryDarkNew" />
 
@@ -273,6 +278,7 @@
                     android:layout_height="32dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
+                    android:contentDescription="@string/mapIcon_ContentDesc"
                     android:src="@drawable/map_icon"
                     android:tint="@color/colorPrimaryDarkNew" />
 
@@ -303,7 +309,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:background="@color/colorPrimaryDarkNew"
-                    android:text="Use My Location"
+                    android:text="@string/use_my_location"
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     android:typeface="normal" />
@@ -349,7 +355,7 @@
                         android:paddingRight="6dp"
                         android:textColor="@drawable/feature_tag_textcolor"
                         android:textOff="@string/fast_wifi"
-                        android:textOn="Fast WiFi" />
+                        android:textOn="@string/fast_wifi" />
 
                     <ToggleButton
                         android:id="@+id/feature_free_coffee"
@@ -361,7 +367,7 @@
                         android:paddingRight="6dp"
                         android:textColor="@drawable/feature_tag_textcolor"
                         android:textOff="@string/free_coffee"
-                        android:textOn="Free Coffee" />
+                        android:textOn="@string/free_coffee" />
 
 
                     <ToggleButton
@@ -374,7 +380,7 @@
                         android:paddingRight="6dp"
                         android:textColor="@drawable/feature_tag_textcolor"
                         android:textOff="@string/_24_hour"
-                        android:textOn="24 Hour" />
+                        android:textOn="@string/_24_hour" />
 
                     <ToggleButton
                         android:id="@+id/feature_printer_access"
@@ -386,7 +392,7 @@
                         android:paddingRight="6dp"
                         android:textColor="@drawable/feature_tag_textcolor"
                         android:textOff="@string/printer_access"
-                        android:textOn="Printer Access" />
+                        android:textOn="@string/printer_access" />
 
 
                     <ToggleButton
@@ -399,7 +405,7 @@
                         android:paddingRight="6dp"
                         android:textColor="@drawable/feature_tag_textcolor"
                         android:textOff="@string/free_parking"
-                        android:textOn="Free Parking" />
+                        android:textOn="@string/free_parking" />
 
                     <ToggleButton
                         android:id="@+id/feature_kitchenette"
@@ -411,7 +417,7 @@
                         android:paddingRight="6dp"
                         android:textColor="@drawable/feature_tag_textcolor"
                         android:textOff="@string/kitchenette"
-                        android:textOn="Kitchenette" />
+                        android:textOn="@string/kitchenette" />
 
 
                     <ToggleButton
@@ -424,7 +430,7 @@
                         android:paddingRight="6dp"
                         android:textColor="@drawable/feature_tag_textcolor"
                         android:textOff="@string/membership"
-                        android:textOn="Membership" />
+                        android:textOn="@string/membership" />
 
                     <ToggleButton
                         android:id="@+id/feature_green_space"
@@ -436,7 +442,7 @@
                         android:paddingRight="6dp"
                         android:textColor="@drawable/feature_tag_textcolor"
                         android:textOff="@string/green_space"
-                        android:textOn="Green Space" />
+                        android:textOn="@string/green_space" />
 
 
                     <ToggleButton
@@ -449,7 +455,7 @@
                         android:paddingRight="6dp"
                         android:textColor="@drawable/feature_tag_textcolor"
                         android:textOff="@string/conference"
-                        android:textOn="Conference" />
+                        android:textOn="@string/conference" />
 
                     <ToggleButton
                         android:id="@+id/feature_office"
@@ -461,7 +467,7 @@
                         android:paddingRight="6dp"
                         android:textColor="@drawable/feature_tag_textcolor"
                         android:textOff="@string/private_offices"
-                        android:textOn="Private Offices" />
+                        android:textOn="@string/private_offices"/>
 
 
                     <ToggleButton
@@ -474,7 +480,7 @@
                         android:paddingRight="6dp"
                         android:textColor="@drawable/feature_tag_textcolor"
                         android:textOff="@string/public_transpor"
-                        android:textOn="Public Transpor." />
+                        android:textOn="@string/public_transpor" />
 
                     <ToggleButton
                         android:id="@+id/feature_maker_space"
@@ -486,7 +492,7 @@
                         android:paddingRight="6dp"
                         android:textColor="@drawable/feature_tag_textcolor"
                         android:textOff="@string/maker_space"
-                        android:textOn="Maker Space" />
+                        android:textOn="@string/maker_space" />
 
 
                 </app.com.shalan.spacego.Activities.AutoGridLayout>

@@ -20,7 +20,7 @@
             android:layout_marginRight="16dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
@@ -33,6 +33,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:contentDescription="@string/information_icon_ContentDesc"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/information_icon"
                 android:tint="@color/colorPrimary" />
@@ -64,7 +65,7 @@
             android:layout_marginRight="16dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
@@ -78,6 +79,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
+                android:contentDescription="@string/AddressIcon_ContentDesc"
                 android:src="@drawable/address_icon"
                 android:tint="@color/colorPrimary" />
         </LinearLayout>
@@ -108,7 +110,7 @@
             android:layout_marginRight="16dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
@@ -122,6 +124,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
+                android:contentDescription="@string/phoneIcon_ContentDesc"
                 android:src="@drawable/phone_icon"
                 android:tint="@color/colorPrimary" />
         </LinearLayout>
@@ -151,7 +154,7 @@
             android:layout_marginRight="16dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
@@ -165,6 +168,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
+                android:contentDescription="@string/websiteIcon_ContentDesc"
                 android:src="@drawable/website_icon"
                 android:tint="@color/colorPrimary" />
         </LinearLayout>
@@ -196,7 +200,7 @@
             android:layout_marginRight="16dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
@@ -210,6 +214,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
+                android:contentDescription="@string/commentIcon_ContentDesc"
                 android:src="@drawable/comment_icon"
                 android:tint="@color/colorPrimary" />
         </LinearLayout>

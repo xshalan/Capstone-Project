@@ -32,6 +32,7 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
+                android:contentDescription="@string/SpaceCover_contentDescription"
                 android:src="@drawable/office"
                 app:layout_collapseMode="parallax" />
 

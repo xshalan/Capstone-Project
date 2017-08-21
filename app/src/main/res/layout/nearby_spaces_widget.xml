@@ -10,7 +10,7 @@
         android:id="@+id/appwidget_text"
         android:layout_height="45dp"
         android:layout_width="match_parent"
-        android:text="Nearby spaces"
+        android:text="@string/WidgetSpacesTitle"
         android:textColor="#ffffff"
         android:textSize="18sp"
         android:textStyle="bold|italic"
