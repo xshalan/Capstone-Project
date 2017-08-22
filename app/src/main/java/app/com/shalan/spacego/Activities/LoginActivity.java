@@ -51,8 +51,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (Utils.isConnected(getApplicationContext())) {
                     login();
                 } else {
-                    Snackbar.make(view, "Check your Connection!", Snackbar.LENGTH_LONG)
-                            .setAction("Try again!", new View.OnClickListener() {
+                    Snackbar.make(view, R.string.check_ur_connection, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.tryAgain, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     login();
@@ -76,10 +76,10 @@ public class LoginActivity extends AppCompatActivity {
         final String password = passwordInput.getText().toString();
         final String email = emailInput.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.enter_email, Toast.LENGTH_SHORT).show();
         }
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.enter_Password, Toast.LENGTH_SHORT).show();
         }
         mFirebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

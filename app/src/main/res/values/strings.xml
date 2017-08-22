@@ -138,5 +138,22 @@
     <string name="feature_offices_ContentDesc">The space offer private offices for the members</string>
     <string name="feature_public_ContentDesc">You can reach to the space by public transportation</string>
     <string name="background_ContentDesc">Background</string>
+    <string name="fab_addSpace_contentDesc">Add new space</string>
+    <string name="fab_coverImage_ContentDesc">Upload a cover image for the space</string>
+    <string name="loginAlertMessege">Please Login first to add your review!</string>
+    <string name="check_ur_connection">Check your Connection!</string>
+    <string name="tryAgain">Try again!</string>
+    <string name="enter_email">Enter email address!</string>
+    <string name="enter_Password">Enter password!</string>
+    <string name="pleaseWait">Please wait!</string>
+    <string name="check_ur_information">Check your informaiton!</string>
+    <string name="added_successfully">added successfully</string>
+    <string name="FailedAddSpace">Failed to add space! try later!</string>
+    <string name="pickAphoto">Please, Pick a photo!</string>
+    <string name="passTooShort">Password too short!</string>
+    <string name="done">Done!</string>
+    <string name="youAwesoneThanks">You are awesome! Thanks</string>
+    <string name="failed">Failed! try again</string>
+    <string name="tellusyourReview">Please! Tell us your review!</string>
 
 </resources>

@@ -61,8 +61,8 @@ public class SignUpActivity extends AppCompatActivity {
                 if (Utils.isConnected(getApplicationContext())) {
                     signUp();
                 } else {
-                    Snackbar.make(view, "Check your Connection!", Snackbar.LENGTH_LONG)
-                            .setAction("Try again!", new View.OnClickListener() {
+                    Snackbar.make(view, R.string.check_ur_connection, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.tryAgain, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     signUp();
@@ -85,14 +85,14 @@ public class SignUpActivity extends AppCompatActivity {
         final String password = passwordInput.getText().toString();
         final String email = emailInput.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.enter_email, Toast.LENGTH_SHORT).show();
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.enter_Password, Toast.LENGTH_SHORT).show();
         }
         if (password.length() < 6) {
-            Toast.makeText(getApplicationContext(), "Password too short!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.passTooShort, Toast.LENGTH_SHORT).show();
         }
         progressBar.setVisibility(View.VISIBLE);
         mFirebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -100,7 +100,7 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.done, Toast.LENGTH_SHORT).show();
                             mFirebaseDatabase = FirebaseDatabase.getInstance();
                             mDatabaseReference = mFirebaseDatabase.getReference("Users").child(task.getResult().getUser().getUid());
                             User user = new User(username, email, password);

@@ -7,5 +7,5 @@ import android.view.View;
  */
 
 public interface OnSpaceClickListener {
-    public void onSpaceClick(View view,int position) ;
+    void onSpaceClick(View view, int position) ;
 }

@@ -207,12 +207,7 @@ public class NearbyActivity extends AppCompatActivity implements LocationListene
 
     private boolean inRange(Double distance, int radius) {
         // if the distance between two point in range of radius
-        if (distance < radius) {
-            return true;
-
-        } else {
-            return false;
-        }
+        return distance < radius;
     }
 
 

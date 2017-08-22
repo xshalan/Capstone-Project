@@ -101,15 +101,15 @@ public class WriteReviewActivity extends AppCompatActivity {
                                 double newRate = rating ;
                                 setNewRating(newRate,spaceID,ReviewRef) ;
                                 progressBar.setProgress(View.INVISIBLE);
-                                Toast.makeText(getApplicationContext(), "You are awesome! Thanks", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), R.string.youAwesoneThanks, Toast.LENGTH_SHORT).show();
                                 onBackPressed();
                             } else {
-                                Toast.makeText(getApplicationContext(), "Failed! try again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), R.string.failed, Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 } else {
-                    Toast.makeText(getApplicationContext(), "Please! Tell us your review!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.tellusyourReview, Toast.LENGTH_SHORT).show();
                 }
             }
         });

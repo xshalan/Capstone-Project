@@ -177,7 +177,7 @@ public class NewSpace extends AppCompatActivity implements
                     isFeatureSelected(featureList);
                     addSpace(spaceModel, featureList);
                 } else {
-                    Snackbar.make(view, "Check your Connection!", Snackbar.LENGTH_LONG);
+                    Snackbar.make(view, R.string.check_ur_connection, Snackbar.LENGTH_LONG);
                 }
 
             }
@@ -186,7 +186,7 @@ public class NewSpace extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 getLocationProgress = new ProgressDialog(NewSpace.this);
-                getLocationProgress.setMessage("Please wait!");
+                getLocationProgress.setMessage(getString(R.string.pleaseWait));
                 getLocationProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 getLocationProgress.setIndeterminate(true);
                 getLocationProgress.show();
@@ -292,7 +292,7 @@ public class NewSpace extends AppCompatActivity implements
             spaceModel.setImageUrl(imageCoverUrl);
             spaceModel.setRating(rating);
         } else {
-            Toast.makeText(getApplicationContext(), "Check your informaiton!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.check_ur_information, Toast.LENGTH_SHORT).show();
 
         }
         if (imageCoverUrl != null) {
@@ -302,9 +302,9 @@ public class NewSpace extends AppCompatActivity implements
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(getApplicationContext(), nameText.getText().toString() + " added successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), nameText.getText().toString() + getString(R.string.added_successfully), Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getApplicationContext(), "Failed to add space! try later!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), R.string.FailedAddSpace, Toast.LENGTH_SHORT).show();
                             }
 
                         }
@@ -317,7 +317,7 @@ public class NewSpace extends AppCompatActivity implements
 
 
         } else {
-            Toast.makeText(getApplicationContext(), "Please, Pick a photo! ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.pickAphoto, Toast.LENGTH_SHORT).show();
         }
 
     }

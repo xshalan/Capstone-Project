@@ -90,9 +90,9 @@ public class AboutFragment extends Fragment {
                     startActivity(intent);
                 } else {
                     progressDialog = new AlertDialog.Builder(getContext());
-                    progressDialog.setMessage("Please Login first to add your review!");
+                    progressDialog.setMessage(R.string.loginAlertMessege);
                     progressDialog.setCancelable(true);
-                    progressDialog.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                    progressDialog.setPositiveButton(R.string.login, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -163,7 +163,7 @@ public class AboutFragment extends Fragment {
 
     private void init(Space spaceModel, String spaceID) {
         this.spaceModel = spaceModel;
-        this.spaceID = spaceID;
+        AboutFragment.spaceID = spaceID;
     }
 
     @Override

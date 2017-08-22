@@ -526,6 +526,7 @@
         app:borderWidth="0dp"
         app:elevation="6dp"
         app:fabSize="normal"
+        android:contentDescription="@string/fab_coverImage_ContentDesc"
         app:layout_anchor="@id/new_space_app_bar"
         app:layout_anchorGravity="bottom|right|end"
         app:srcCompat="@drawable/add_image" />
